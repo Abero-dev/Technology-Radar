@@ -1,36 +1,36 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export const Navbar = () => {
+const Navbar = () => {
 
     const [homeOption, setHomeOption] = useState(true);
     const [radarOption, setRadarOption] = useState(false);
     const [otherOption, setOtherOption] = useState(false);
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     // show border in *home* if it is selected
     const changeHomeOption = () => {
-        setHomeOption(true);
-        setRadarOption(false);
-        setOtherOption(false);
-        navigate('/');
+        setHomeOption(true)
+        setRadarOption(false)
+        setOtherOption(false)
+        navigate('/')
     }
 
     // show border in *technology radar* if it is selected
     const changeRadarOption = () => {
-        setHomeOption(false);
-        setRadarOption(true);
-        setOtherOption(false);
-        navigate('/radar');
+        setHomeOption(false)
+        setRadarOption(true)
+        setOtherOption(false)
+        navigate('/radar')
     }
 
     // show border in *other option* if it is selected
     const changeOtherOption = () => {
-        setHomeOption(false);
-        setRadarOption(false);
-        setOtherOption(true);
-        navigate('/other-option');
+        setHomeOption(false)
+        setRadarOption(false)
+        setOtherOption(true)
+        navigate('/other-option')
     }
 
     return (
@@ -58,3 +58,5 @@ export const Navbar = () => {
         </>
     )
 }
+
+export default Navbar
