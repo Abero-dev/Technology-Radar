@@ -1,7 +1,8 @@
-import React from 'react'
 
-export const Home = () => {
+const Home = () => {
     return (
         <div className='home'>Home</div>
     )
 }
+
+export default Home
