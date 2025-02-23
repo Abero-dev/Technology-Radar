@@ -1,17 +1,43 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+import PropTypes from "prop-types"
+import { useFormik } from "formik"
 import { SearchDetailsContext } from './contexts/SearchDetailsContext'
 
-export const SearchBar = (onSearch) => {
-    const [searchTerm, setSearchTerm] = useContext(SearchDetailsContext);
+const SearchBar = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useContext(SearchDetailsContext)
+    
+    const formik = useFormik({
+        initialValues: { searchTerm: searchTerm },
+        onSubmit: (values) => {
+            setSearchTerm(values.searchTerm)
+            onSearch()
+        }
+    });
 
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value)
-        onSearch()
-    }
+    useEffect(() => {
+        formik.setFieldValue('searchTerm', searchTerm)
+    }, [searchTerm, formik])
+
     return (
-        <search className='searchBar'>
-            <input type='text' placeholder='Search...' value={searchTerm} />
-            <span className='lupa' onClick={handleSearch}>Seek</span>
-        </search>
+        <form role="search" className="searchBar" onSubmit={formik.handleSubmit}>
+            <label htmlFor="search-input" 
+                className="search-label-visually-hidden">
+                    Search
+            </label>
+            
+            <input 
+                id="search-input"
+                type="text" 
+                {...formik.getFieldProps("searchTerm")}
+                placeholder="Search..." 
+            />
+            <button type="submit" className="lupa">Seek</button>
+        </form>
     )
 }
+
+SearchBar.propTypes = {
+    onSearch: PropTypes.func.isRequired,
+}
+
+export default SearchBar
