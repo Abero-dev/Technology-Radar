@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import radar_visualization from '../../assets/radar'
 import { SearchDetailsContext } from '../contexts/SearchDetailsContext'
-import { SearchBar } from '../SearchBar'
-import { SideBar } from '../SideBar'
+import SearchBar from '../SearchBar'
 
 const Radar = () => {
     const { searchTerm, resultsFilter, resultsOrder } = useContext(SearchDetailsContext);
@@ -101,7 +100,6 @@ const Radar = () => {
     return (
         <>
             <section className='sectionRadar'>
-                <SideBar page={'radar'} />
                 <SearchBar onSearch={handleSearch} />
                 <div>
                     <svg id="radar"></svg>
