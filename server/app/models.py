@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Entrie(models.Model):
     label = models.CharField(max_length=30, unique=True)
@@ -11,4 +10,4 @@ class Entrie(models.Model):
     link = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.label
+        return str(self.label)
