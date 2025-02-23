@@ -1,27 +1,27 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
-import Footer from './components/Footer.jsx'
-import Navbar from './components/Navbar.jsx'
 import Home from './components/Home'
-import Radar from './components/Radar/Radar.jsx'
-import Options from './components/Options.jsx'
+import Radar from './components/Radar/Radar'
+import Options from './components/Options'
+import Layout from './components/Layout/Layout'
+import { SearchDetailsProvider } from './components/contexts/SearchDetailsContext'
+import NotFound from "./components/NotFound"
 
 const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <>
-                <Route index element={<Home />} />
-                <Route path='/radar' element={<Radar />} />
-                <Route path='/options' element={<Options />} />
-            </>
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home />} />
+                    <Route path="radar" element={<Radar />} />
+                    <Route path="options" element={<Options />} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
         )
     )
 
     return (
-        <div className='app'>
-            <Navbar />
+        <SearchDetailsProvider>
             <RouterProvider router={router} />
-            <Footer />
-        </div>
+        </SearchDetailsProvider>
     )
 }
 
