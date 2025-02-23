@@ -1,102 +1,207 @@
-import React, { useContext, useEffect } from 'react'
-import radar_visualization from '../../assets/radar'
-import data from '../../data/data'
-import { SearchBar } from './SearchBar'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
-import { AfterSearchContext } from '../contexts/AfterSearchContext'
+import radar_visualization from '../../assets/radar'
+import { SearchDetailsContext } from '../contexts/SearchDetailsContext'
+import { SearchBar } from '../SearchBar'
 import { SideBar } from '../SideBar'
-import { ScienseQLeyend } from './ScienseQLeyend'
 
-const RadarComponent = () => {
+const Radar = () => {
+    const { searchTerm, resultsFilter, resultsOrder } = useContext(SearchDetailsContext);
+    const [results, setResults] = useState([])
 
-    const { datosContext, setDatosContext } = useContext(AfterSearchContext);
-
-    useEffect(() => {
-        // function to get information from DeepSeek (***UNIMPLENTED YET, DONT TOUCH***)
-        async function deepseekSearch(term, dsApiKey) {
-            const url = "https://api.deepseek.com/chat/completions";
-            const headers = {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${dsApiKey}`
-            };
-            const data = {
-                model: "deepseek-chat",
-                messages: [
-                    { role: "system", content: "You are a helpful assistant." },
-                    { role: "user", content: term }
-                ],
-                stream: false
-            };
-
+    // function to search the technology in outters APIs
+    const handleSearch = async () => {
+        if (searchTerm !== '') {
             try {
-                const response = await axios.post(url, data, { headers });
-                return response.data;
-            } catch (error) {
-                console.error("Error al hacer la petición: ", error);
-                return null;
+                // search in OpenAlex
+                const responseOpenAlex = await fetch(`https://api.openalex.org/works?filter=title.search:${searchTerm}`);
+                const dataOpenAlex = await responseOpenAlex.json();
+                console.log(dataOpenAlex)
+
+                // search in DeepSeek
+                const dsApiKey = "sk-59dc0909b3904b919e9ffb1f1cf4266a"
+                deepseekSearch(searchTerm, dsApiKey).then(resultado => {
+                    if (resultado) {
+                        console.log(resultado)
+                    }
+                    else {
+                        console.log("No hay resultados");
+                    }
+                })
+                // get entries from self API
+                const entries = await axios.get("http://localhost:8000/app/entries");
+
+                // creating the new entrie
+                const newEntrie = {
+                    "label": `${searchTerm}`,
+                    "quadrant": 1,
+                    "ring": 1,
+                    "active": true,
+                    "moved": 0,
+                    "link": `https://www.${searchTerm}.com`
+                }
+
+                // if there are entries
+                if (entries.data.length != 0) {
+                    entries.data.map( async (entry, index) => {
+                        // if there is an entrie with the same label then update the entrie with the same label
+                        if (entry.label === searchTerm) {
+                            await axios.put(`http://localhost:8000/app/entries/${index + 1}/`, newEntrie)
+                            setResults([])
+                            return
+                        }
+                    })
+                    }
+                    // else post the new entrie
+                    await axios.post("http://localhost:8000/app/entries/", newEntrie);
+                    console.log(entries.data);
+                    console.log(newEntrie);
+                    setResults([]);
+            } catch (err) {
+                console.log(err);
             }
         }
-        // function to get entries from self API
-        async function getEntries() {
-            let entries = await axios.get("http://localhost:8000/app/entries");
-            for (let i = 0; i < entries.data.length; i++) {
-                console.log(entries.data[i]);
-                // getting info from OpenAlex
-                const responseOpenAlex = await fetch(`https://api.openalex.org/works?filter=title.search:${entries.data[i].label}`);
-                const seekDataOpenAlex = await responseOpenAlex.json();
-
-                let updatedEntrie;
-                // conditions to decide entries rings using information quality
-                if (seekDataOpenAlex.results.length >= 1 && seekDataOpenAlex.results.length <= 10 && seekDataOpenAlex.meta.count > 1 && seekDataOpenAlex.meta.count <= 100)
-                    updatedEntrie = {
-                        "label": entries.data[i].label,
-                        "quadrant": entries.data[i].quadrant,
-                        "ring": 3,
-                        "active": entries.data[i].active,
-                        "moved": entries.data[i].move,
-                        "link": entries.data[i].link
-                    }
-                else if (seekDataOpenAlex.results.length >= 11 && seekDataOpenAlex.results.length <= 25 && seekDataOpenAlex.meta.count > 100 && seekDataOpenAlex.meta.count <= 1000)
-                    updatedEntrie = {
-                        "label": entries.data[i].label,
-                        "quadrant": entries.data[i].quadrant,
-                        "ring": 2,
-                        "active": entries.data[i].active,
-                        "moved": entries.data[i].move,
-                        "link": entries.data[i].link
-                    }
-                else if (seekDataOpenAlex.results.length >= 26 && seekDataOpenAlex.results.length <= 50 && seekDataOpenAlex.meta.count > 1000 && seekDataOpenAlex.meta.count <= 5000)
-                    updatedEntrie = {
-                        "label": entries.data[i].label,
-                        "quadrant": entries.data[i].quadrant,
-                        "ring": 1,
-                        "active": entries.data[i].active,
-                        "moved": entries.data[i].move,
-                        "link": entries.data[i].link
-                    }
-                else
-                    updatedEntrie = {
-                        "label": entries.data[i].label,
-                        "quadrant": entries.data[i].quadrant,
-                        "ring": 0,
-                        "active": entries.data[i].active,
-                        "moved": entries.data[i].move,
-                        "link": entries.data[i].link
-                    }
-                //updating entries rings if change
-                await axios.put(`http://localhost:8000/app/entries/${entries.data[i].id}/`, updatedEntrie);
-            }
-            //get entries from self API
-            entries = await axios.get("http://localhost:8000/app/entries");
-            //console.log(entries.data);
-            setDatosContext(entries.data);
-
+        else {
+            alert("Plis enter the technology to search!")
         }
+    }
 
-        getEntries()
-    }, [])
-    //console.log(datosContext)
+    // setting radar config
+    const config = {
+        svg_id: "radar",
+        width: 1600,
+        height: 950,
+        colors: {
+            background: '#eee',
+            grid: "#bbb",
+            inactive: "#ddd"
+        },
+        quadrants: [
+            { name: "Languages and Framework" },
+            { name: "Scientific Stage" },
+            { name: "Business Intelligence" },
+            { name: "Platform and Supported Tool" },
+        ],
+        rings: [
+            { name: "ADOPT", color: "#5ba300" },
+            { name: "TEST", color: "#009eb0" },
+            { name: "EVALUATE", color: "#c7ba00" },
+            { name: "SUSTAIN", color: "#e09b96" }
+        ],
+        print_layout: true,
+        links_in_new_tabs: true,
+        entries: results
+    }
+
+    // showing radar each time happens entries updates or when adding new entries
+    useEffect(() => {
+        radar_visualization(config);
+    }, [searchTerm, resultsFilter, resultsOrder, results])
+
+    return (
+        <>
+            <section className='sectionRadar'>
+                <SideBar page={'radar'} />
+                <SearchBar onSearch={handleSearch} />
+                <div>
+                    <svg id="radar"></svg>
+                </div>
+            </section>
+        </>
+    )
+}
+
+export default Radar
+
+
+// my DeepSeek API key *OJO CON FACHARTELA*
+
+// function to get information from DeepSeek (***UNIMPLENTED YET, DONT TOUCH***)
+const deepseekSearch = async (term, dsApiKey) => {
+    const url = "https://api.deepseek.com/chat/completions"
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${dsApiKey}`
+    };
+    const data = {
+        model: "deepseek-chat",
+        messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: term }
+        ],
+        stream: false
+    };
+
+    try {
+        const response = await axios.post(url, data, { headers });
+        return response.data;
+    } catch (error) {
+        console.error("Error al hacer la petición: ", error);
+        return null;
+    }
+}
+
+
+// useEffect(() => {    
+//     // getEntries()
+// }, [])
+// //console.log(datosContext)
+
+// function to get entries from self API
+// const getEntries = async () => {
+//     let entries = await axios.get("http://localhost:8000/app/entries")
+//     for (let i = 0; i < entries.data.length; i++) {
+//         console.log(entries.data[i])
+//         // getting info from OpenAlex
+//         const responseOpenAlex = await fetch(`https://api.openalex.org/works?filter=title.search:${entries.data[i].label}`)
+//         const seekDataOpenAlex = await responseOpenAlex.json()
+
+//         let updatedEntrie;
+//         // conditions to decide entries rings using information quality
+//         if (seekDataOpenAlex.results.length >= 1 && seekDataOpenAlex.results.length <= 10 && seekDataOpenAlex.meta.count > 1 && seekDataOpenAlex.meta.count <= 100)
+//             updatedEntrie = {
+//                 "label": entries.data[i].label,
+//                 "quadrant": entries.data[i].quadrant,
+//                 "ring": 3,
+//                 "active": entries.data[i].active,
+//                 "moved": entries.data[i].move,
+//                 "link": entries.data[i].link
+//             }
+//         else if (seekDataOpenAlex.results.length >= 11 && seekDataOpenAlex.results.length <= 25 && seekDataOpenAlex.meta.count > 100 && seekDataOpenAlex.meta.count <= 1000)
+//             updatedEntrie = {
+//                 "label": entries.data[i].label,
+//                 "quadrant": entries.data[i].quadrant,
+//                 "ring": 2,
+//                 "active": entries.data[i].active,
+//                 "moved": entries.data[i].move,
+//                 "link": entries.data[i].link
+//             }
+//         else if (seekDataOpenAlex.results.length >= 26 && seekDataOpenAlex.results.length <= 50 && seekDataOpenAlex.meta.count > 1000 && seekDataOpenAlex.meta.count <= 5000)
+//             updatedEntrie = {
+//                 "label": entries.data[i].label,
+//                 "quadrant": entries.data[i].quadrant,
+//                 "ring": 1,
+//                 "active": entries.data[i].active,
+//                 "moved": entries.data[i].move,
+//                 "link": entries.data[i].link
+//             }
+//         else
+//             updatedEntrie = {
+//                 "label": entries.data[i].label,
+//                 "quadrant": entries.data[i].quadrant,
+//                 "ring": 0,
+//                 "active": entries.data[i].active,
+//                 "moved": entries.data[i].move,
+//                 "link": entries.data[i].link
+//             }
+//         //updating entries rings if change
+//         await axios.put(`http://localhost:8000/app/entries/${entries.data[i].id}/`, updatedEntrie)
+//     }
+//     //get entries from self API
+//     entries = await axios.get("http://localhost:8000/app/entries")
+//     //console.log(entries.data);
+//     setData(entries.data)
+// }
 
     // old entries
     /*const otherEntries = [
@@ -430,54 +535,3 @@ const RadarComponent = () => {
             "moved": 0
         }
     ]*/
-
-    // setting radar config
-    const config = {
-        svg_id: "radar",
-        width: 1600,
-        height: 950,
-        colors: {
-            background: '#eee',
-            grid: "#bbb",
-            inactive: "#ddd"
-        },
-        quadrants: [
-            { name: "Languages and Framework" },
-            { name: "Scientific Stage" },
-            { name: "Business Intelligence" },
-            { name: "Platform and Supported Tool" },
-        ],
-        rings: [
-            { name: "ADOPT", color: "#5ba300" },
-            { name: "TEST", color: "#009eb0" },
-            { name: "EVALUATE", color: "#c7ba00" },
-            { name: "SUSTAIN", color: "#e09b96" }
-        ],
-        print_layout: true,
-        links_in_new_tabs: true,
-        entries: datosContext
-    };
-
-    // showing radar each time happens entries updates or when adding new entries
-    useEffect(() => {
-        radar_visualization(config);
-
-    }, [datosContext])
-
-    return (
-        <>
-            <section className='sectionRadar'>
-                <SideBar page={'radar'} />
-                {/*<ScienseQLeyend />*/}
-
-                <div>
-
-                    <svg id="radar"></svg>
-                </div>
-
-            </section>
-        </>
-    )
-}
-
-export default RadarComponent;
