@@ -16,7 +16,10 @@ const SearchDetailsProvider = ({ children }) => {
 	})
 
 	return (
-		<SearchDetailsContext.Provider value={{ searchTerm, resultOrder, resultFilter, setSearchTerm, setResultOrder, setResultFilter }}> {children}
+		<SearchDetailsContext.Provider value={[
+			searchTerm, resultOrder, resultFilter, 
+			setSearchTerm, setResultOrder, setResultFilter 
+			]}>
 			{children}
 		</SearchDetailsContext.Provider>
 	)
@@ -24,4 +27,4 @@ const SearchDetailsProvider = ({ children }) => {
 
 SearchDetailsProvider.propTypes = { children: PropTypes.node.isRequired }
 
-export { SearchDetailsContext, SearchDetailsProvider };
+export { SearchDetailsContext, SearchDetailsProvider }
