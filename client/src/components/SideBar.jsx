@@ -1,25 +1,41 @@
-import React from 'react'
-import { SearchBar } from './Radar/SearchBar'
+import PropTypes from "prop-types"
 
-export const SideBar = ({ page }) => {
+const SideBar = ({ page }) => {
+    let optionsList
+    
+    switch (page) {
+        case "radar":
+            optionsList = [
+                "Filtrar",
+                "Ordenar"
+            ]
+            break
+        case "options":
+            optionsList = [
+                "General",
+                "Apariencia",
+                "otra opcion",
+                "otra opcion"
+            ]
+            break
+        default: 
+            optionsList = ["No hay ninguna opcion disponible"]
+            break
+    }  
+
     return (
-        <a>
-            <div className='sidebar'>
-                {
-                    page === 'radar' &&
-                    <div>
-                        <SearchBar />
-                    </div>
-                }
-                {
-                    page === 'otherOption' &&
-                    <div>
-                        Estas en otra opcion
-                    </div>
-                }
-            </div>
-            <div className='sidebarBase'></div>
+        <div className='sidebar'>
+            <ul>
+                { optionsList.map((option, index) => <li key={index}>{option}</li>) }
+            </ul>
 
-        </a>
+            <div className='sidebarBase' />
+        </div>
     )
 }
+
+SideBar.propTypes = {
+    page: PropTypes.string.isRequired,
+}
+
+export default SideBar
