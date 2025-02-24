@@ -6,9 +6,9 @@ const Layout = () => {
     return (
         <div className='app'>
             <Navbar />
-                <main className="main-content">
-                    <Outlet />
-                </main>           
+            <main className="main-content">
+                <Outlet className="outlet" />
+            </main>
             <SideMenu />
         </div>
     )
