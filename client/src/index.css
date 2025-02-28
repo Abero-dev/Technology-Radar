@@ -44,6 +44,14 @@ body {
   margin: 0;
 }
 
+.navbar-li, .navbar-li-selected {
+  padding: 15px;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s, font-size 0.2s; 
+  color: white; 
+  text-align: center;
+}
+
 .navbar-li {
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -62,7 +70,6 @@ body {
   padding-bottom: 8px;
   border-bottom: 4px solid white;
   border-radius: 20%;
-  color: white; 
   font-size: 30px; 
   font-weight: 1000;
 }
@@ -99,11 +106,12 @@ body {
 .sidemenu {
   background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
   color: white; 
-  width: 200px;
+  width: 15%;
   height: calc(100vh - 70px);
   padding: 10px;
   position: fixed;
   display: flex;
+  justify-content: center;
   left: 0;
   top: 70px;
   z-index: 1;
@@ -129,12 +137,21 @@ body {
 }
 
 .sidemenu li {
-  padding: 10px;
+  padding: 20px;
+  font-size: 25px;
+  font-weight: 800;
+  text-align: center;
   cursor: pointer;
+  transition: transform 0.2s, color 0.2s, font-size 0.2s; 
 }
 
 .sidemenu li:hover {
-  background-color: #555; 
+  border-radius: 15%;
+  border-bottom: 4px solid cyan;
+  transform: scale(1.1);
+  color: cyan;
+  background-color: rgb(30, 0, 67); 
+  box-shadow: 0 0 18px 15px rgb(35, 2, 117);
 }
 
 
