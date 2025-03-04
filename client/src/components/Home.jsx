@@ -48,7 +48,7 @@ const Home = () => {
                             <div className="flip-card" data-aos="fade-left" data-aos-duration="1000">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img alt="Ilustración de radar tecnológico" className="card-image" src="https://storage.googleapis.com/a1aa/image/EuD2Mb4BEZ-GnGtrZYw5ZmG9Xd4XDMoKkxJVzGgnxoM.jpg" />
+                                        <img alt="Ilustración de radar tecnológico" className="card-image" src="/radar_tecnologico.jpg" />
                                     </div>
                                     <div className="flip-card-back">
                                         <p className="title">Utilizamos tecnología avanzada para detectar las últimas tendencias y avances en el mundo tecnológico.</p>
@@ -58,7 +58,7 @@ const Home = () => {
                             <div className="flip-card" data-aos="fade-down" data-aos-duration="1000">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img alt="Ilustración de análisis de datos" className="card-image" src="https://storage.googleapis.com/a1aa/image/W2tBAltJjAzDUIyRAFVAvT9s8mQBUBysSB1AUDT-gqI.jpg" />
+                                        <img alt="Ilustración de análisis de datos" className="card-image" src="/analisis_de_datos.jpg" />
                                     </div>
                                     <div className="flip-card-back">
                                         <p className="title">Nuestro equipo de expertos analiza los datos recolectados para ofrecerte información relevante y actualizada.</p>
@@ -68,7 +68,7 @@ const Home = () => {
                             <div className="flip-card" data-aos="fade-right" data-aos-duration="1000">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
-                                        <img alt="Ilustración de informe detallado" className="card-image" src="https://storage.googleapis.com/a1aa/image/HtUPULEL0hcDTEEU1c8Qox-DEq0kPmLZMjGYhS35CH4.jpg" />
+                                        <img alt="Ilustración de informe detallado" className="card-image" src="/hub_informacion.jpg" />
                                     </div>
                                     <div className="flip-card-back">
                                         <p className="title">Te proporcionamos informes detallados y personalizados para que tomes decisiones informadas</p>
