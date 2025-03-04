@@ -99,7 +99,7 @@ const RadarComponent = () => {
     //console.log(datosContext)
 
     // old entries
-    /*const otherEntries = [
+    const otherEntries = [
         {
             "quadrant": 0,
             "ring": 0,
@@ -194,7 +194,7 @@ const RadarComponent = () => {
         {
             "quadrant": 1,
             "ring": 0,
-            "label": "IA Generativas",
+            "label": "Generatives AI",
             "active": true,
             "moved": 0
         },
@@ -208,21 +208,21 @@ const RadarComponent = () => {
         {
             "quadrant": 1,
             "ring": 1,
-            "label": "Programación Neuromórfica",
+            "label": "Neuromorphic programation",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 1,
             "ring": 2,
-            "label": "Interacción Inmersiva",
+            "label": "Immersive Interaction",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 1,
             "ring": 3,
-            "label": "Computación Cuántica",
+            "label": "Quantum Computing",
             "active": true,
             "moved": 0
         },
@@ -243,7 +243,7 @@ const RadarComponent = () => {
         {
             "quadrant": 3,
             "ring": 1,
-            "label": "tableau",
+            "label": "Tableau",
             "active": true,
             "moved": 0
         },
@@ -257,14 +257,14 @@ const RadarComponent = () => {
         {
             "quadrant": 2,
             "ring": 0,
-            "label": "Competencia",
+            "label": "Competence",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 0,
-            "label": "Adopción de la IA",
+            "label": "AI Adoption",
             "active": true,
             "moved": 0
         },
@@ -278,42 +278,42 @@ const RadarComponent = () => {
         {
             "quadrant": 2,
             "ring": 0,
-            "label": "Visualización de Datos",
+            "label": "Data Visualization",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 0,
-            "label": "Soluciones en la Nube",
+            "label": "Cloud Solutions",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 0,
-            "label": "Experiencia de Usuario",
+            "label": "User Experience",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 2,
-            "label": "Analítica de Datos Inmersiva",
+            "label": "Immersive Data Analytics",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 2,
-            "label": "Automatización de la preparación de datos",
+            "label": "Data Preparation Automation",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 2,
-            "label": "IA explicativa",
+            "label": "Explanatory AI",
             "active": true,
             "moved": 0
         },
@@ -327,21 +327,21 @@ const RadarComponent = () => {
         {
             "quadrant": 2,
             "ring": 3,
-            "label": "Datos en cilos",
+            "label": "Data in cycles",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 3,
-            "label": "Desarrollo Tradicional del Software",
+            "label": "Traditional Software Development",
             "active": true,
             "moved": 0
         },
         {
             "quadrant": 2,
             "ring": 3,
-            "label": "Boletines de Inteligencia",
+            "label": "Intelligence Bulletins",
             "active": true,
             "moved": 0
         },
@@ -429,7 +429,7 @@ const RadarComponent = () => {
             "active": true,
             "moved": 0
         }
-    ]*/
+    ]
 
     // setting radar config
     const config = {
@@ -455,7 +455,7 @@ const RadarComponent = () => {
         ],
         print_layout: true,
         links_in_new_tabs: true,
-        entries: datosContext
+        entries: otherEntries
     };
 
     // showing radar each time happens entries updates or when adding new entries
