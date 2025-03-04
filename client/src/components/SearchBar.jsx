@@ -5,7 +5,7 @@ import { SearchDetailsContext } from './contexts/SearchDetailsContext'
 
 const SearchBar = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useContext(SearchDetailsContext)
-    
+
     const formik = useFormik({
         initialValues: { searchTerm: searchTerm },
         onSubmit: (values) => {
@@ -20,16 +20,16 @@ const SearchBar = ({ onSearch }) => {
 
     return (
         <form role="search" className="searchBar" onSubmit={formik.handleSubmit}>
-            <label htmlFor="search-input" 
+            <label htmlFor="search-input"
                 className="search-label-visually-hidden">
-                    Search
+                Search
             </label>
-            
-            <input 
+
+            <input
                 id="search-input"
-                type="text" 
+                type="text"
                 {...formik.getFieldProps("searchTerm")}
-                placeholder="Search..." 
+                placeholder="Search..."
             />
             <button type="submit" className="lupa">Seek</button>
         </form>
