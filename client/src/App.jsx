@@ -1,26 +1,28 @@
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
+import Home from './components/Home'
+import Radar from './components/Radar/Radar'
+import Options from './components/Options'
+import Layout from './components/Layout/Layout'
+import { SearchDetailsProvider } from './components/contexts/SearchDetailsContext'
+import NotFound from "./components/NotFound"
 
-import { Footer } from './components/Footer.jsx';
-import { Home } from './components/Home';
-import { Navbar } from './components/Navbar.jsx';
-import { OtherComponent } from './components/OtherComponent';
-import RadarComponent from './components/Radar/RadarComponent'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+const App = () => {
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home />} />
+                    <Route path="radar" element={<Radar />} />
+                    <Route path="options" element={<Options />} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+        )
+    )
 
-function App() {
-
-  return (
-    <BrowserRouter>
-      <div className='app'>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home></Home>} />
-          <Route path='/radar' element={<RadarComponent></RadarComponent>} />
-          <Route path='/other-option' element={<OtherComponent></OtherComponent>}></Route>
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  )
+    return (
+        <SearchDetailsProvider>
+            <RouterProvider router={router} />
+        </SearchDetailsProvider>
+    )
 }
 
-export default App;
+export default App

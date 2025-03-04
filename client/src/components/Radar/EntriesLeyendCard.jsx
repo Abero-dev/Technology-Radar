@@ -1,16 +1,22 @@
-import React from 'react'
+import PropTypes from "prop-types"
 
-export const EntriesLeyendCard = ({ text, color, info }) => {
+const EntriesLeyendCard = ({ quadrantName, text, color, entries }) => {
     return (
-        <div className='scienseQLeyendInfo'>
-            <span style={{ color: color, fontWeight: "bolder", fontStyle: "italic", fontFamily: "Calibri", fontSize: "19px" }}>{text}</span>
+        <div className={quadrantName}>
+            <h3 style={{ color: color, fontWeight: "bolder", fontStyle: "italic", fontFamily: "Calibri", fontSize: "19px" }}>{text}</h3>
             <ol>
-                <li>a1</li>
-                <li>b1</li>
-                <li>c1</li>
-                <li>d1</li>
-                <li>e1</li>
+                {entries.length > 0 && entries.map((entry, index) => <li key={index}>{entry}</li> )}
+                {entries.length === 0 && <li>No hay elementos</li> }
             </ol>
         </div>
     )
 }
+
+EntriesLeyendCard.propTypes = {
+    quadrantName: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    entries: PropTypes.array,
+}
+
+export default EntriesLeyendCard
