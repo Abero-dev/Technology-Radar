@@ -1,20 +1,101 @@
-import { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import radar_visualization from '../../assets/radar'
-import { SearchDetailsContext } from '../contexts/SearchDetailsContext'
-import SearchBar from '../SearchBar'
+import { useEffect, useState, useRef } from 'react';
+// import { VisualDetailsContext } from '../../contexts/VisualDetailsContext'
+import radar_visualization from './aid-components/radar_visualization'
+import data from "../../data/data"
 
 const Radar = () => {
-    const { searchTerm, resultsFilter, resultsOrder } = useContext(SearchDetailsContext);
-    const [results, setResults] = useState([])
+    // const { resultsFilter, resultsOrder } = useContext(VisualDetailsContext)
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const svgRef = useRef(null) // Crear un ref para el SVG
 
-    // function to search the technology in outters APIs
+    // Cargar datos y establecer el estado de carga
+    useEffect(() => {
+        if (data) {
+            setResults(data)
+            setLoading(false)
+        }
+    }, [])
+
+    // Ejecutar radar_visualization solo cuando loading es false y el SVG está disponible
+    useEffect(() => {
+        if (!loading && svgRef.current) {
+            const config = {
+                svg_id: "radar",
+                width: 1920,
+                height: 1080,
+                colors: {
+                    background: '#eee',
+                    grid: "#bbb",
+                    inactive: "#ddd"
+                },
+                quadrants: [
+                    { name: "Languages and Framework" },
+                    { name: "Scientific Stage" },
+                    { name: "Business Intelligence" },
+                    { name: "Platform and Supported Tool" },
+                ],
+                rings: [
+                    { name: "ADOPT", color: "#5ba300" },
+                    { name: "TEST", color: "#009eb0" },
+                    { name: "EVALUATE", color: "#c7ba00" },
+                    { name: "SUSTAIN", color: "#e09b96" }
+                ],
+                print_layout: true,
+                links_in_new_tabs: true,
+                entries: results
+            }
+            radar_visualization(config)
+        }
+    }, [loading, results]) // Solo depende de loading y results
+
+    return (
+        <>
+            <section className='sectionRadar'>
+                {loading ? <span>Loading...</span> : <svg id="radar" ref={svgRef} />}
+            </section>
+        </>
+    )
+}
+
+export default Radar
+
+
+// my DeepSeek API key *OJO CON FACHARTELA*
+
+// function to get information from DeepSeek (***UNIMPLENTED YET, DONT TOUCH***)
+// const deepseekSearch = async (term, dsApiKey) => {
+//     const url = "https://api.deepseek.com/chat/completions"
+//     const headers = {
+//         "Content-Type": "application/json",
+//         "Authorization": `Bearer ${dsApiKey}`
+//     };
+//     const data = {
+//         model: "deepseek-chat",
+//         messages: [
+//             { role: "system", content: "You are a helpful assistant." },
+//             { role: "user", content: term }
+//         ],
+//         stream: false
+//     };
+
+//     try {
+//         const response = await axios.post(url, data, { headers });
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error al hacer la petición: ", error);
+//         return null;
+//     }
+// }
+
+/*
+// function to search the technology in outters APIs
     const handleSearch = async () => {
         if (searchTerm !== '') {
             try {
                 // search in OpenAlex
-                const responseOpenAlex = await fetch(`https://api.openalex.org/works?filter=title.search:${searchTerm}`);
-                const dataOpenAlex = await responseOpenAlex.json();
+                const responseOpenAlex = await fetch(`https://api.openalex.org/works?filter=title.search:${searchTerm}`)
+                const dataOpenAlex = await responseOpenAlex.json()
                 console.log(dataOpenAlex)
 
                 // search in DeepSeek
@@ -24,11 +105,11 @@ const Radar = () => {
                         console.log(resultado)
                     }
                     else {
-                        console.log("No hay resultados");
+                        console.log("No hay resultados")
                     }
                 })
                 // get entries from self API
-                const entries = await axios.get("http://localhost:8000/app/entries");
+                const entries = await axios.get("http://localhost:8000/app/entries")
 
                 // creating the new entrie
                 const newEntrie = {
@@ -52,95 +133,22 @@ const Radar = () => {
                     })
                     }
                     // else post the new entrie
-                    await axios.post("http://localhost:8000/app/entries/", newEntrie);
-                    console.log(entries.data);
-                    console.log(newEntrie);
-                    setResults([]);
+                    await axios.post("http://localhost:8000/app/entries/", newEntrie)
+                    console.log(entries.data)
+                    console.log(newEntrie)
+                    setResults([])
             } catch (err) {
-                console.log(err);
+                console.log(err)
             }
         }
         else {
             alert("Plis enter the technology to search!")
         }
     }
-
-    // setting radar config
-    const config = {
-        svg_id: "radar",
-        width: 1600,
-        height: 950,
-        colors: {
-            background: '#eee',
-            grid: "#bbb",
-            inactive: "#ddd"
-        },
-        quadrants: [
-            { name: "Languages and Framework" },
-            { name: "Scientific Stage" },
-            { name: "Business Intelligence" },
-            { name: "Platform and Supported Tool" },
-        ],
-        rings: [
-            { name: "ADOPT", color: "#5ba300" },
-            { name: "TEST", color: "#009eb0" },
-            { name: "EVALUATE", color: "#c7ba00" },
-            { name: "SUSTAIN", color: "#e09b96" }
-        ],
-        print_layout: true,
-        links_in_new_tabs: true,
-        entries: results
-    }
-
-    // showing radar each time happens entries updates or when adding new entries
-    useEffect(() => {
-        radar_visualization(config);
-    }, [searchTerm, resultsFilter, resultsOrder, results])
-
-    return (
-        <>
-            <section className='sectionRadar'>
-                <SearchBar onSearch={handleSearch} />
-                <div>
-                    <svg id="radar"></svg>
-                </div>
-            </section>
-        </>
-    )
-}
-
-export default Radar
+*/
 
 
-// my DeepSeek API key *OJO CON FACHARTELA*
-
-// function to get information from DeepSeek (***UNIMPLENTED YET, DONT TOUCH***)
-const deepseekSearch = async (term, dsApiKey) => {
-    const url = "https://api.deepseek.com/chat/completions"
-    const headers = {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${dsApiKey}`
-    };
-    const data = {
-        model: "deepseek-chat",
-        messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            { role: "user", content: term }
-        ],
-        stream: false
-    };
-
-    try {
-        const response = await axios.post(url, data, { headers });
-        return response.data;
-    } catch (error) {
-        console.error("Error al hacer la petición: ", error);
-        return null;
-    }
-}
-
-
-// useEffect(() => {    
+// useEffect(() => {
 //     // getEntries()
 // }, [])
 // //console.log(datosContext)
@@ -201,335 +209,335 @@ const deepseekSearch = async (term, dsApiKey) => {
 //     setData(entries.data)
 // }
 
-    // old entries
-    /*const otherEntries = [
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "JavaScript",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "Python",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "TypeScript",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "C++",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "Django",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 0,
-            "label": "React",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 1,
-            "label": "Angular",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 1,
-            "label": "Vue.js",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 2,
-            "label": "Laravel",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 2,
-            "label": "Express.js",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 2,
-            "label": "Spring Framework",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 0,
-            "ring": 3,
-            "label": "Symfony",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 0,
-            "label": "ML",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 0,
-            "label": "IA Generativas",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 0,
-            "label": "UX",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 1,
-            "label": "Programación Neuromórfica",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 2,
-            "label": "Interacción Inmersiva",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 1,
-            "ring": 3,
-            "label": "Computación Cuántica",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Clean Code",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 1,
-            "label": "Power BI",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 1,
-            "label": "tableau",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 2,
-            "label": "Dooker",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Competencia",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Adopción de la IA",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Big Data",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Visualización de Datos",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Soluciones en la Nube",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 0,
-            "label": "Experiencia de Usuario",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 2,
-            "label": "Analítica de Datos Inmersiva",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 2,
-            "label": "Automatización de la preparación de datos",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 2,
-            "label": "IA explicativa",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 2,
-            "label": "Clean Code",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 3,
-            "label": "Datos en cilos",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 3,
-            "label": "Desarrollo Tradicional del Software",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 2,
-            "ring": 3,
-            "label": "Boletines de Inteligencia",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Git",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "GitLab",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Visual Studio Code",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Postman",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Atom",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Docker",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 0,
-            "label": "Kubernetes",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 1,
-            "label": "Webpack",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 1,
-            "label": "Github Copilot",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 1,
-            "label": "Mirrord",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 2,
-            "label": "Alloy Unified API",
-            "active": true,
-            "moved": 0
-        },
-        {
-            "quadrant": 3,
-            "ring": 3,
-            "label": "PWA",
-            "active": true,
-            "moved": 0
-        }
-    ]*/
+// old entries
+/*const otherEntries = [
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "JavaScript",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "Python",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "TypeScript",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "C++",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "Django",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 0,
+        "label": "React",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 1,
+        "label": "Angular",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 1,
+        "label": "Vue.js",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 2,
+        "label": "Laravel",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 2,
+        "label": "Express.js",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 2,
+        "label": "Spring Framework",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 0,
+        "ring": 3,
+        "label": "Symfony",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 0,
+        "label": "ML",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 0,
+        "label": "IA Generativas",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 0,
+        "label": "UX",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 1,
+        "label": "Programación Neuromórfica",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 2,
+        "label": "Interacción Inmersiva",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 1,
+        "ring": 3,
+        "label": "Computación Cuántica",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Clean Code",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 1,
+        "label": "Power BI",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 1,
+        "label": "tableau",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 2,
+        "label": "Dooker",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Competencia",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Adopción de la IA",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Big Data",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Visualización de Datos",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Soluciones en la Nube",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 0,
+        "label": "Experiencia de Usuario",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 2,
+        "label": "Analítica de Datos Inmersiva",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 2,
+        "label": "Automatización de la preparación de datos",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 2,
+        "label": "IA explicativa",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 2,
+        "label": "Clean Code",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 3,
+        "label": "Datos en cilos",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 3,
+        "label": "Desarrollo Tradicional del Software",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 2,
+        "ring": 3,
+        "label": "Boletines de Inteligencia",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Git",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "GitLab",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Visual Studio Code",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Postman",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Atom",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Docker",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 0,
+        "label": "Kubernetes",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 1,
+        "label": "Webpack",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 1,
+        "label": "Github Copilot",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 1,
+        "label": "Mirrord",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 2,
+        "label": "Alloy Unified API",
+        "active": true,
+        "moved": 0
+    },
+    {
+        "quadrant": 3,
+        "ring": 3,
+        "label": "PWA",
+        "active": true,
+        "moved": 0
+    }
+]*/

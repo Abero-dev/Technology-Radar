@@ -1,3 +1,69 @@
+/* hay que secuenciar el tabIndex */
+:root {
+  --primary-color: #3B82F6;
+  --secondary-color: #8B5CF6;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.6);
+  z-index: 10;  
+  animation: show-overlay 0.5s ease-in-out;
+}
+
+@keyframes show-overlay {
+  0% {
+    opacity: 0;
+    top: -100%;
+  }
+  100% {
+    opacity: 1;
+    top: 8%;
+  }
+}
+
+.modal-container {
+  position: fixed;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-template-rows: repeat(2, 1fr); 
+  gap: 10px;
+  padding: 20px; 
+  width: 100%;
+  height: 80%;
+  top: 8.4%;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  z-index: 2;
+  transition: transform 0.2s ease-in-out;
+  animation: show-modal 0.5s ease-in-out forwards;
+}
+
+@keyframes show-modal {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.modal-container.hidden {
+  animation: hide-modal 0.5s ease-in-out forwards;
+}
+
+@keyframes hide-modal {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: white;
@@ -9,7 +75,7 @@ body {
 .navbar {
   width: 100%;
   height: 80px;
-  background: linear-gradient(to right, #3B82F6, #8B5CF6);
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   border-radius: 1%;
   border-bottom: 5px solid #333;
   position: fixed;
@@ -17,7 +83,7 @@ body {
   justify-items: center;
   align-items: center;
   top: 0;
-  z-index: 2;
+  z-index: 10;
   color: white;
   padding: 1rem 0;
 }
@@ -59,6 +125,63 @@ body {
   padding: 0;
   margin: 0;
   margin-right: 300px;
+}
+
+.service-menu-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-service-menu-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0px;
+}
+
+.navbar-li-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  cursor: pointer;
+  color: white; 
+  padding: 5px;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s, font-size 0.2s; 
+  color: white; 
+  text-align: center;
+}
+
+.navbar-li-menu:hover {
+  border-radius: 20%;
+  background-color: #613bba;
+  box-shadow: 0 0 10px 10px #613bba;
+  color: #b3d0ff; 
+  border-bottom: 2px solid #b3d0ff;
+}
+
+.navbar-service-menu-li {
+  list-style-type: none;
+  color: #eee;
+  font-size: 26px;
+  text-align: right;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.navbar-service-menu-li:hover {
+  border-bottom: 4px solid #eee;
+  transform: scale(1.1);
 }
 
 .navbar-li, .navbar-li-selected {
@@ -117,11 +240,23 @@ body {
 }
 
 .sectionRadar {
-  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin-left: 32vw;
 }
+
+#radar {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
 
 .sidemenu {
   background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+  margin-top: 45px;
+  border-right: 4px solid #333;
   color: white; 
   width: 15%;
   height: calc(100vh - 70px);
@@ -223,6 +358,7 @@ body {
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
+  background-color: #eee;
 }
 
 .outlet {

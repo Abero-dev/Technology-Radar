@@ -9,12 +9,12 @@ import NotFound from "./components/NotFound"
 const App = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
-                <Route path="/" element={<Layout/>}>
-                    <Route index element={<Home />} />
-                    <Route path="radar" element={<Radar />} />
-                    <Route path="options" element={<Options />} />
-                    <Route path="*" element={<NotFound />} />
-                </Route>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="radar" element={<Radar />} />
+                <Route path="options" element={<Options />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
         )
     )
 
