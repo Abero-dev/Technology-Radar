@@ -22,9 +22,9 @@
 
 import * as d3 from "d3";
 import { rings, legend_offset, title_offset } from "./position_consts"
-import { 
-	viewbox, 
-	translate, 
+import {
+	viewbox,
+	translate,
 	mouse_out,
 	mouse_over,
 	legend_transform,
@@ -32,44 +32,44 @@ import {
 } from "./aid_functions"
 
 const radar_visualization = (config) => {
-    config.svg_id = config.svg || "radar"
-    config.width = config.width || 1450
-    config.height = config.height || 1000
-    config.colors = ("colors" in config) ? config.colors : {
-      	background: "#2f2c79",
+	config.svg_id = config.svg || "radar"
+	config.width = config.width || 1450
+	config.height = config.height || 1000
+	config.colors = ("colors" in config) ? config.colors : {
+		background: "#2f2c79",
 		grid: '#888',
-      	inactive: "#ddd",
-    };
+		inactive: "#ddd",
+	};
 
-    config.print_layout = ("print_layout" in config) ? config.print_layout : true
-    config.links_in_new_tabs = ("links_in_new_tabs" in config) ? config.links_in_new_tabs : true
-    config.repo_url = config.repo_url || '#'
-    config.print_ring_descriptions_table = ("print_ring_descriptions_table" in config) ? config.print_ring_descriptions_table : false
-    config.footer_offset = config.footer_offset || { x: -155, y: 450 }
-  
-   // define default font-family
-   config.font_family = config.font_family || "Arial, Helvetica"
-  
-    // adjust with config.scale.
-    config.scale = config.scale || 1
-    let scaled_width = config.width * config.scale
-    let scaled_height = config.height * config.scale
-  
-    let svg = d3.select("svg#" + config.svg_id)
-    	.style("background-color", config.colors.background)
-    	.attr("width", scaled_width)
-    	.attr("height", scaled_height)
+	config.print_layout = ("print_layout" in config) ? config.print_layout : true
+	config.links_in_new_tabs = ("links_in_new_tabs" in config) ? config.links_in_new_tabs : true
+	config.repo_url = config.repo_url || '#'
+	config.print_ring_descriptions_table = ("print_ring_descriptions_table" in config) ? config.print_ring_descriptions_table : false
+	config.footer_offset = config.footer_offset || { x: -155, y: 450 }
 
-  	let radar = svg.append("g")
-	
+	// define default font-family
+	config.font_family = config.font_family || "Arial, Helvetica"
+
+	// adjust with config.scale.
+	config.scale = config.scale || 1
+	let scaled_width = config.width * config.scale
+	let scaled_height = config.height * config.scale
+
+	let svg = d3.select("svg#" + config.svg_id)
+		.style("background-color", config.colors.background)
+		.attr("width", scaled_width)
+		.attr("height", scaled_height)
+
+	let radar = svg.append("g")
+
 	if ("zoomed_quadrant" in config) {
-    	svg.attr("viewBox", viewbox(config.zoomed_quadrant))
-  	} else {
-    	radar.attr("transform", translate(scaled_width / 2, scaled_height / 2).concat(`scale(${config.scale})`))
-  	}
+		svg.attr("viewBox", viewbox(config.zoomed_quadrant))
+	} else {
+		radar.attr("transform", translate(scaled_width / 2, scaled_height / 2).concat(`scale(${config.scale})`))
+	}
 
 	let grid = radar.append("g")
-	
+
 	// draw grid lines
 	grid.append("line")
 		.attr("x1", 0).attr("y1", -400)
@@ -81,7 +81,7 @@ const radar_visualization = (config) => {
 		.attr("x2", 400).attr("y2", 0)
 		.style("stroke", config.colors.grid)
 		.style("stroke-width", 4)
-	
+
 	// background color. Usage `.attr("filter", "url(#solid)")`
 	// SOURCE: https://stackoverflow.com/a/31013492/2609980
 	let defs = grid.append("defs")
@@ -92,27 +92,27 @@ const radar_visualization = (config) => {
 		.attr("width", 1)
 		.attr("height", 1)
 		.attr("id", "solid")
-	
+
 	filter.append("feFlood")
 		.attr("flood-color", "rgb(0, 0, 0, 0.8)")
-	
+
 	filter.append("feComposite")
 		.attr("in", "SourceGraphic")
-	
+
 	// draw rings
 	rings.forEach((ring, index) => {
 		grid.append("circle")
 			.attr("cx", 0)
-		  	.attr("cy", 0)
-		  	.attr("r", ring.radius)
-		  	.attr("position", "absolute")
-		  	.attr("z-index", 10)
-		  	.style("fill", 'none')
-		  	.style("stroke", config.rings[index].color)
-		  	.style("stroke-width", 4)
+			.attr("cy", 0)
+			.attr("r", ring.radius)
+			.attr("position", "absolute")
+			.attr("z-index", 10)
+			.style("fill", 'none')
+			.style("stroke", config.rings[index].color)
+			.style("stroke-width", 4)
 
 		if (config.print_layout) {
-		  	grid.append("text")
+			grid.append("text")
 				.text(config.rings[index].name)
 				.attr("y", -ring.radius + 75)
 				.attr("text-anchor", "middle")
@@ -125,75 +125,75 @@ const radar_visualization = (config) => {
 				.style("user-select", "none")
 		}
 	})
-	
-	  // draw title and legend (only in print layout)
+
+	// draw title and legend (only in print layout)
 	if (config.print_layout) {
 		// title
 		radar.append("a")
 			.attr("href", config.repo_url)
-		  	.attr("transform", translate(title_offset.x, title_offset.y))
-		  	.append("text")
-		  	.attr("class", "hover-underline")  // add class for hover effect
-		  	.text(config.title)
-		  	.style("font-family", config.font_family)
-		  	.style("font-size", "30px")
-		  	.style("font-weight", "bold")
-		  	.style("fill", "#ff0")
-	
+			.attr("transform", translate(title_offset.x, title_offset.y))
+			.append("text")
+			.attr("class", "hover-underline")  // add class for hover effect
+			.text(config.title)
+			.style("font-family", config.font_family)
+			.style("font-size", "30px")
+			.style("font-weight", "bold")
+			.style("fill", "#ff0")
+
 		// date
 		radar
-		  	.append("text")
-		  	.attr("transform", translate(title_offset.x, title_offset.y + 20))
-		  	.text(config.date || "")
-		  	.style("font-family", config.font_family)
-		  	.style("font-size", "14px")
-		  	.style("fill", "#bb0")
-	
+			.append("text")
+			.attr("transform", translate(title_offset.x, title_offset.y + 20))
+			.text(config.date || "")
+			.style("font-family", config.font_family)
+			.style("font-size", "14px")
+			.style("fill", "#bb0")
+
 		// footer
 		radar.append("text")
-		  	.attr("transform", translate(config.footer_offset.x - 150, config.footer_offset.y))
-		  	.text("▲ movido hacia arriba     ▼ movido hacia abajo     ★ nuevo     ⬤ sin cambios")
-		  	.attr("xml:space", "preserve")
-		  	.style("font-family", config.font_family)
-		  	.style("font-size", "16px")
-		  	.style("fill", "#333");
-	  }
+			.attr("transform", translate(config.footer_offset.x - 210, config.footer_offset.y))
+			.text("▲ movido hacia arriba     ▼ movido hacia abajo     ★ nuevo     ⬤ sin cambios")
+			.attr("xml:space", "preserve")
+			.style("font-family", config.font_family)
+			.style("font-size", "22px")
+			.style("fill", "#333");
+	}
 
-	
-    // legend
-    let legend = radar.append("g")
-	
+
+	// legend
+	let legend = radar.append("g")
+
 	let segmented = positioning_function(config)
 
 	for (let quadrant = 0; quadrant < 4; quadrant++) {
-      	legend
+		legend
 			.append("text")
-        	.attr("transform", translate(
-          		legend_offset[quadrant].x,
-          		legend_offset[quadrant].y - 45
-        ))
-        	.text(config.quadrants[quadrant].name)
-        	.style("font-family", config.font_family)
-        	.style("font-size", "24px")
-        	.style("font-weight", "600")
-        	.style("fill", "#333")
+			.attr("transform", translate(
+				legend_offset[quadrant].x,
+				legend_offset[quadrant].y - 45
+			))
+			.text(config.quadrants[quadrant].name)
+			.style("font-family", config.font_family)
+			.style("font-size", "30px")
+			.style("font-weight", "600")
+			.style("fill", "#333")
 
 		for (let ring = 0; ring < 4; ring++) {
 			legend.append("text")
 				.attr("transform", legend_transform(segmented, quadrant, ring))
 				.text(config.rings[ring].name)
 				.style("font-family", config.font_family)
-				.style("font-size", "16px")
+				.style("font-size", "20px")
 				.style("font-weight", "bold")
 				.style("font-style", "italic")
 				.style("fill", config.rings[ring].color)
-			
+
 			legend.selectAll(".legend" + quadrant + ring)
 				.data(segmented[quadrant][ring])
 				.enter()
 				.append("a")
 				.attr("href", (data) => data.link ? data.link : "#") // stay on same page if no link was provided
-				
+
 				// Add a target if (and only if) there is a link and we want new tabs
 				.attr("target", (data) => (data.link && config.links_in_new_tabs) ? "_blank" : null)
 				.append("text")
@@ -202,40 +202,40 @@ const radar_visualization = (config) => {
 				.attr("id", (data) => "legendItem" + data.id)
 				.text((data) => data.id + ". " + data.label)
 				.style("font-family", config.font_family)
-				.style("font-size", "12px")
+				.style("font-size", "18px")
 				.style("font-weight", "bolder")
 				.style("fill", "#333")
 				.on("mouseover", (e, data) => mouse_over(config, data))
 				.on("mouseout", (e, data) => mouse_out(data))
 		}
-    }
-  
+	}
+
 	// rollover bubble (on top of everything else)
 	let bubble = radar.append("g")
-	  	.attr("id", "bubble")
-	  	.attr("x", 0)
-	  	.attr("y", 0)
-	  	.attr("position", "absolute")
-	  	.attr("z-index", 20)
-	  	.style("opacity", 0)
-	  	.style("pointer-events", "none")
-	  	.style("user-select", "none")
+		.attr("id", "bubble")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("position", "absolute")
+		.attr("z-index", 20)
+		.style("opacity", 0)
+		.style("pointer-events", "none")
+		.style("user-select", "none")
 
 	bubble.append("rect")
-	  	.attr("rx", 4)
-	  	.attr("ry", 4)
-	  	.style("fill", "#333")
-	
-	bubble.append("text")
-	  	.style("font-family", config.font_family)
-	  	.style("font-size", "10px")
-	  	.style("fill", "#fff")
-	
-	bubble.append("path")
-	  	.attr("d", "M 0,0 10,0 5,8 z")
+		.attr("rx", 4)
+		.attr("ry", 4)
 		.style("fill", "#333")
-	
-  
+
+	bubble.append("text")
+		.style("font-family", config.font_family)
+		.style("font-size", "10px")
+		.style("fill", "#fff")
+
+	bubble.append("path")
+		.attr("d", "M 0,0 10,0 5,8 z")
+		.style("fill", "#333")
+
+
 	// layer for entries
 	let rink = radar.append("g")
 		.attr("id", "rink")
@@ -244,26 +244,26 @@ const radar_visualization = (config) => {
 	let blips = rink.selectAll(".blip")
 		.data(config.entries)
 		.enter()
-	  	.append("g")
-	  	.attr("class", "blip")
-	  	.attr("transform", (d, i) => legend_transform(segmented, d.quadrant, d.ring, i))
-	  	.on("mouseover", (e, data) => mouse_over(config, data))
-	  	.on("mouseout", (e, data) => mouse_out(data))
-  
+		.append("g")
+		.attr("class", "blip")
+		.attr("transform", (d, i) => legend_transform(segmented, d.quadrant, d.ring, i))
+		.on("mouseover", (e, data) => mouse_over(config, data))
+		.on("mouseout", (e, data) => mouse_out(data))
+
 	// configure each blip
 	let blip
 	blips.each((data, i, nodes) => {
 		blip = d3.select(nodes[i])
-	
+
 		// blip link
 		if (data.active && Object.prototype.hasOwnProperty.call(data, "link") && data.link) {
 			blip = blip.append("a")
 				.attr("xlink:href", data.link)
-	
-			if (config.links_in_new_tabs) 
+
+			if (config.links_in_new_tabs)
 				blip.attr("target", "_blank")
 		}
-	
+
 		// blip shape
 		if (data.moved == 1) {
 			blip.append("path")
@@ -282,14 +282,14 @@ const radar_visualization = (config) => {
 
 		} else {
 			blip.append("circle")
-				.attr("r", 13)
+				.attr("r", 16)
 				.attr("fill", data.color)
 		}
-	
+
 		// blip text
 		if (data.active || config.print_layout) {
 			let blip_text = config.print_layout ? data.id : data.label.match(/[a-z]/i)
-			
+
 			blip.append("text")
 				.text(blip_text)
 				.attr("y", 3)
@@ -302,16 +302,16 @@ const radar_visualization = (config) => {
 				.style("user-select", "none")
 		}
 	})
-  
+
 	// distribute blips, while avoiding collisions
 	d3.forceSimulation()
-	  	.nodes(config.entries)
-	  	.velocityDecay(0.19) // magic number (found by experimentation)
-	  	.force("collision", d3.forceCollide().radius(12).strength(0.85))
-	  	.on("tick", () => 
-			blips.attr("transform", (d) => 
+		.nodes(config.entries)
+		.velocityDecay(0.19) // magic number (found by experimentation)
+		.force("collision", d3.forceCollide().radius(12).strength(0.85))
+		.on("tick", () =>
+			blips.attr("transform", (d) =>
 				translate(d.segment.clipx(d), d.segment.clipy(d))))// make sure that blips stay inside their segment
-  
+
 	if (config.print_ring_descriptions_table) {
 		let table = d3.select("body").append("table")
 			.attr("class", "radar-table")
@@ -324,8 +324,8 @@ const radar_visualization = (config) => {
 			.style("font-size", "13px")
 			.style("text-align", "left")
 
-	  	let thead = table.append("thead")
-	  	let tbody = table.append("tbody")
+		let thead = table.append("thead")
+		let tbody = table.append("tbody")
 
 		// define fixed width for each column
 		let columnWidth = `${100 / config.rings.length}%`

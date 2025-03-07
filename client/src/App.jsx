@@ -5,6 +5,8 @@ import Options from './components/Options'
 import Layout from './components/Layout/Layout'
 import { SearchDetailsProvider } from './components/contexts/SearchDetailsContext'
 import NotFound from "./components/NotFound"
+import { Suspense } from "react"
+import Loading from "./components/Loading"
 
 const App = () => {
     const router = createBrowserRouter(
@@ -12,7 +14,6 @@ const App = () => {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="radar" element={<Radar />} />
-                <Route path="options" element={<Options />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         )
@@ -20,7 +21,9 @@ const App = () => {
 
     return (
         <SearchDetailsProvider>
-            <RouterProvider router={router} />
+            <Suspense fallback={<Loading />}>
+                <RouterProvider router={router} />
+            </Suspense>
         </SearchDetailsProvider>
     )
 }

@@ -10,9 +10,9 @@ export const ServiceCard = ({ icon, title, options }) => {
             </figure>
             <ul className='navbar-service-menu-ul'>
                 {options.map(option =>
-                    <li key={option.id} className='navbar-service-menu-li'>
-                        <NavLink to="/radar">
-                            {option}
+                    <li key={option.name} className='navbar-service-menu-li'>
+                        <NavLink to={option.route} className='navbar-service-menu-navlink'>
+                            {option.name}
                         </NavLink>
                     </li>
                 )}
