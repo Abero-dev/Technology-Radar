@@ -35,9 +35,6 @@ const Home = () => {
                         <p className="section-description">
                             Mantente al tanto de las últimas tendencias y avances tecnológicos con nuestro servicio de vigilancia a través del radar.
                         </p>
-                        <button className="cta-button">
-                            Descubre Más
-                        </button>
                     </div>
                 </section>
 

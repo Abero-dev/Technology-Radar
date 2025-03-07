@@ -39,7 +39,7 @@
   background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   z-index: 2;
   transition: transform 0.2s ease-in-out;
-  animation: show-modal 0.5s ease-in-out forwards;
+  animation: show-modal 0.5s ease forwards;
 }
 
 @keyframes show-modal {
@@ -52,7 +52,7 @@
 }
 
 .modal-container.hidden {
-  animation: hide-modal 0.5s ease-in-out forwards;
+  animation: hide-modal 0.5s ease forwards;
 }
 
 @keyframes hide-modal {
@@ -132,6 +132,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.service-cell-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .navbar-service-menu-ul {
@@ -564,7 +571,6 @@ body {
     text-align: center;
     border-radius: 50px;
     margin-top: 1300px;
-    transition: transform 0.2s ease-in-out;
 }
 
 .section-gradient-rotating {
@@ -581,10 +587,6 @@ body {
         opacity: 1; 
         transform: rotateY(360deg);
     }
-}
-
-.section-gradient:hover {
-    transform: scale(1.1);
 }
 
 .section-title {
