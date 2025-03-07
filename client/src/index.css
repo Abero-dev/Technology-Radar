@@ -152,6 +152,8 @@ body {
 
 .navbar-li-menu {
   display: flex;
+  background: none;
+  border: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
