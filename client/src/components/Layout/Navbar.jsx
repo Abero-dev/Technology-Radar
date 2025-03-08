@@ -31,9 +31,13 @@ const Navbar = () => {
         setMenuVisible(!menuVisible);
     };
 
+    const handleServiceCardClick = () => {
+        setMenuVisible(false);
+    };
+
     return (
         <>
-            {menuVisible && <ServiceCardContainer containerRef={menuRef} />}
+            {menuVisible && <ServiceCardContainer containerRef={menuRef} onOptionClick={handleServiceCardClick} />}
 
             <header className='navbar'>
                 <img src="/vigitech_logo.png" alt='vigitech_logo' className='logo' />
@@ -48,15 +52,10 @@ const Navbar = () => {
                                 Inicio
                             </NavLink>
                         </li>
-                        <li>
-                            <button
-                                className='navbar-li-menu'
-                                ref={buttonRef}
-                                onClick={toggleDropDownMenu}
-                            >
-                                Servicios
-                            </button>
-
+                        <li className='navbar-li-menu'
+                            ref={buttonRef}
+                            onClick={toggleDropDownMenu}>
+                            Servicios
                         </li>
                         <li>
                             <NavLink
@@ -81,18 +80,58 @@ const Navbar = () => {
     );
 };
 
-const ServiceCardContainer = ({ containerRef }) => {
+const ServiceCardContainer = ({ containerRef, onOptionClick }) => {
     return (
         <div className='modal-overlay'>
             <div className='modal-container' ref={containerRef}>
-                <ServiceCard icon='' title='Vigilancia' options={[{ name: 'Radar', route: '/radar' }]} />
-                <ServiceCard icon='' title='titulo 2' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 3' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 4' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 5' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 6' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 7' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
-                <ServiceCard icon='' title='titulo 8' options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]} />
+                <ServiceCard
+                    icon=''
+                    title='Vigilancia'
+                    options={[{ name: 'Radar', route: '/radar' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 2'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 3'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 4'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 5'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 6'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 7'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
+                <ServiceCard
+                    icon=''
+                    title='titulo 8'
+                    options={[{ name: 'Servicio 1', route: '#' }, { name: 'Servicio 2', route: '#' }, { name: 'Servicio 3', route: '#' }]}
+                    onOptionClick={onOptionClick}
+                />
             </div>
         </div>
     );
