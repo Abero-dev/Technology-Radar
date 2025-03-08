@@ -5,7 +5,7 @@ export const ServiceCard = ({ icon, title, options, onOptionClick }) => {
     return (
         <div className='service-menu-cell'>
             <figure className='service-cell-title-container'>
-                <img src={icon} alt='icon' />
+                <img src={icon} alt='icon' className='service-card-icon' />
                 <h1 className='service-menu-cell-title'>{title}</h1>
             </figure>
             <ul className='navbar-service-menu-ul'>

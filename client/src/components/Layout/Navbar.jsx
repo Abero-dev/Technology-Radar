@@ -85,7 +85,7 @@ const ServiceCardContainer = ({ containerRef, onOptionClick }) => {
         <div className='modal-overlay'>
             <div className='modal-container' ref={containerRef}>
                 <ServiceCard
-                    icon=''
+                    icon='/src/assets/eye_icon.svg'
                     title='Vigilancia'
                     options={[{ name: 'Radar', route: '/radar' }]}
                     onOptionClick={onOptionClick}
