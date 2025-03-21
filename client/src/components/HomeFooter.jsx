@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 
 const HomeFooter = () => {
     return (
-        <footer className="home-footer">
+        <footer className="bg-slate-600 text-white text-center py-8 px-0 w-full flex justify-center">
             <div className="container text-center">
                 <section className="social-container">
                     <NavLink to='https://www.facebook.com/vertexuci' target="blank" className="social-logo-container container-facebook">
@@ -21,7 +21,7 @@ const HomeFooter = () => {
                         <img src="/instagram_logo.png" alt="facebook_logo" className="img_social_logo" />
                     </NavLink>
                 </section>
-                <p>© 2025 Centro de Tecnologías Interactivas. Todos los derechos reservados.</p>
+                <p className="text-3xl m-0">© 2025 Centro de Tecnologías Interactivas. Todos los derechos reservados.</p>
             </div>
         </footer>
     )
