@@ -17,7 +17,7 @@ const HomeFooter = () => {
                     <NavLink to='https://www.youtube.com/channel/UCOcXlOj-1NORORMxMBDl5MQ' target="blank" className="social-logo-container w-16 h-16 bg-white flex items-center justify-center overflow-hidden rounded-full hover:bg-cyan-400 hover:invert transition-all duration-300">
                         <img src="/youtube_logo.png" alt="youtube_logo" className="img_social_logo w-10 h-10 rounded-lg" />
                     </NavLink>
-                    <NavLink to='https://www.instagram.com/vertexuci/' target="blank" className="social-logo-container w-16 h-16 bg-white flex items-center justify-center overflow-hidden rounded-full hover:bg-emerald-500 hover:invert transition-all duration-300">
+                    <NavLink to='https://www.instagram.com/vertexuci/' target="blank" className="social-logo-container w-16 h-16 bg-white flex items-center justify-center overflow-hidden rounded-full hover:bg-gradient-to-b hover:from-emerald-500 hover:via-emerald-400 hover:to-blue-800 hover:invert transition-all duration-300">
                         <img src="/instagram_logo.png" alt="instagram_logo" className="img_social_logo w-10 h-10 rounded-lg" />
                     </NavLink>
                 </section>
