@@ -18,6 +18,12 @@ export default {
       animation: {
         'slide-in-top': 'slide-in-top 0.3s both',
       },
+      fontFamily: {
+        custom: ['Verdana', 'Geneva', 'Tahoma', 'sans-serif'],
+      },
+      boxShadow: {
+        navLiShadow: '0 0 10px 10px #613bba',
+      },
     },
   },
   plugins: [],
