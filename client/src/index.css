@@ -151,60 +151,6 @@ text-decoration: none;
   bottom: 0;
 }
 
-.sidemenu {
-  background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
-  margin-top: 45px;
-  border-right: 4px solid #333;
-  color: white; 
-  width: 15%;
-  height: calc(100vh - 70px);
-  padding: 10px;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  top: 70px;
-  z-index: 1;
-  overflow-y: auto;
-  transition: transform 0.3s ease, opacity 0.3s ease; 
-  opacity: 0; 
-  transform: translateX(-100%); 
-}
-
-.sidemenu.visible {
-    opacity: 1;
-    transform: translateX(0); 
-}
-
-.sidemenu.hidden {
-    opacity: 0; 
-    transform: translateX(-100%); 
-}
-
-.sidemenu ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidemenu li {
-  padding: 20px;
-  font-size: 25px;
-  font-weight: 800;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s, color 0.2s, font-size 0.2s; 
-}
-
-.sidemenu li:hover {
-  border-radius: 15%;
-  border-bottom: 4px solid cyan;
-  transform: scale(1.1);
-  color: cyan;
-  background-color: rgb(30, 0, 67); 
-  box-shadow: 0 0 18px 15px rgb(35, 2, 117);
-}
-
-
 .searchBar {
   position: absolute;
   width: 100%;
