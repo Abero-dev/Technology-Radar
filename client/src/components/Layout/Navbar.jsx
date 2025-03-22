@@ -40,14 +40,17 @@ const Navbar = () => {
             {menuVisible && <ServiceCardContainer containerRef={menuRef} onOptionClick={handleServiceCardClick} />}
 
             <header className='navbar'>
-                <img src="/vigitech_logo.png" alt='vigitech_logo' className='logo' />
+                <img src="/vigitech_logo.png" alt='vigitech_logo' className='ml-14 w-20 h-20 rounded-full transition-all duration-300 ease-in-out drop-shadow-[0_0_1px_white] hover:drop-shadow-[0_0_12px_white]' />
                 <h1 className="navbar-title">VigiTech</h1>
                 <nav className='navbar-nav'>
                     <ul className='navbar-ul'>
                         <li>
                             <NavLink
                                 to='/'
-                                className={({ isActive }) => (isActive ? 'navbar-li-selected' : 'navbar-li')}
+                                className={({ isActive }) => (isActive ?
+                                    'navbar-li-selected'
+                                    :
+                                    'navbar-li')}
                             >
                                 Inicio
                             </NavLink>
