@@ -58,15 +58,38 @@ const SideMenu = () => {
                 '-translate-x-full'}`}>
             <ul className='list-none p-0 mt-8'>
                 {optionsList.map((option, index) =>
-                    <>
-                        <li
-                            className='h-14 p-3 text-3xl font-bold text-center cursor-pointer mb-5 transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'
-                            key={index}
-                            onClick={() => setVisible(option)}
-                        >
-                            {option}
+                    <div className='flex flex-col items-center'>
+                        <div className='flex items-center'>
+                            <li
+                                className='h-14 p-3 text-3xl font-bold text-center cursor-pointer mb-5 transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'
+                                key={index}
+                                onClick={() => setVisible(option)}
+                            >
+                                {option}
 
-                        </li>
+                            </li>
+                            {option === "Oficiales" && (
+                                isOficialVisible ?
+                                    <img className='w-10 h-10 mb-3 invert' src='/desplegable_arriba.png' />
+                                    :
+                                    <img className='w-6 h-6 ml-2 mb-3 invert' src='/desplegable_abajo.png' />
+                            )
+                            }
+                            {option === "Candidatos" && (
+                                isCandidatoVisible ?
+                                    <img className='w-10 h-10 mb-3 invert' src='/desplegable_arriba.png' />
+                                    :
+                                    <img className='w-6 h-6 ml-2 mb-3 invert' src='/desplegable_abajo.png' />
+                            )
+                            }
+                            {option === "Ignorados" && (
+                                isIgnoradoVisible ?
+                                    <img className='w-10 h-10 mb-3 invert' src='/desplegable_arriba.png' />
+                                    :
+                                    <img className='w-6 h-6 ml-2 mb-3 invert' src='/desplegable_abajo.png' />
+                            )
+                            }
+                        </div>
                         {option === "Oficiales" &&
                             isOficialVisible &&
                             <SideMenuOptionList list={oficiales} type={"oficiales"} />
@@ -79,7 +102,7 @@ const SideMenu = () => {
                             isIgnoradoVisible &&
                             <SideMenuOptionList list={ignorados} type={"ignorados"} />
                         }
-                    </>
+                    </div>
                 )}
             </ul>
         </div>

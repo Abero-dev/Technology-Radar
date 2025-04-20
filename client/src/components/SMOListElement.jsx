@@ -6,12 +6,14 @@ function SMOListElement({ index, element, type }) {
 
     return (
         <>
-            <li key={index}
-                className='cursor-pointer text-2xl'
-                onClick={() => setMenuVisible(prev => !prev)}
-            >
-                {element}
-            </li>
+            <div className='flex items-center gap-x-3 cursor-pointer' onClick={() => setMenuVisible(prev => !prev)}>
+                <img src={isMenuVisible ? '/close.png' : '/menu.png'} className='w-5 h-5 invert' />
+                <li key={index}
+                    className='text-2xl'
+                >
+                    {element}
+                </li>
+            </div>
             {
                 isMenuVisible &&
                 <ul className='flex flex-col items-start gap-y-5'>
