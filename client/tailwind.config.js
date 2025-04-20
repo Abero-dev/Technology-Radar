@@ -14,9 +14,19 @@ export default {
             opacity: '1',
           },
         },
+        'grow-down': {
+          '0%': { transform: 'scaleY(0)' },
+          '100%': { transform: 'scaleY(1)' }
+        },
+        'grow-from-top': {
+          '0%': { transform: 'scaleY(0)', transformOrigin: 'top' },
+          '100%': { transform: 'scaleY(1)', transformOrigin: 'top' }
+        }
       },
       animation: {
         'slide-in-top': 'slide-in-top 0.3s both',
+        'grow-down': 'grow-down 0.3s ease-in-out',
+        'grow-from-top': 'grow-from-top 0.3s ease-in-out',
       },
       fontFamily: {
         custom: ['Verdana', 'Geneva', 'Tahoma', 'sans-serif'],
