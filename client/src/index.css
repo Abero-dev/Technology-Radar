@@ -7,6 +7,23 @@
   --secondary-color: #8B5CF6;
 }
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 14px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: #1E3A8A; /* Azul oscuro */
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #60A5FA; /* Azul celeste */
+    border-radius: 12px;
+    border: 3px solid #9333EA; /* Morado vibrante */
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #2563EB; /* Azul eléctrico */
+  }
+}
+
 .modal-overlay {
   position: fixed;
   top: 100px;
