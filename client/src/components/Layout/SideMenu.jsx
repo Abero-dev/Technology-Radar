@@ -11,7 +11,7 @@ const SideMenu = () => {
     const [isIgnoradoVisible, setIgnoradoVisible] = useState(false);
     let oficiales = ["O1", "O2", "O3", "O4", "O5"]
     let candidatos = ["C1", "C2", "C3"]
-    let ignorados = ["I1", "I2", "I3"]
+    let ignorados = ["I1", "I2", "I3", "I4"]
 
     useEffect(() => {
         if (currentPath === "/radar" || currentPath === "/options") {
@@ -51,7 +51,7 @@ const SideMenu = () => {
     }
 
     return (
-        <div className={`bg-gradient-to-t from-[#3B82F6] to-[#8B5CF6] mt-12 border-r-4 border-gray-800 text-white w-[15%] h-[calc(100vh-70px)] p-3 fixed flex justify-center left-0 top-16 z-[1] overflow-y-auto scrollbar transition-all duration-300 opacity-0 -translate-x-full
+        <div className={`bg-gradient-to-t from-[#3B82F6] to-[#8B5CF6] mt-[40px] border-r-4 border-gray-800 text-white w-[15%] h-[90vh] p-3 fixed flex justify-center left-0 top-16 z-[1] overflow-y-auto scrollbar transition-all duration-300 opacity-0 -translate-x-full
         ${isVisible ?
                 'translate-x-0 opacity-100'
                 :
