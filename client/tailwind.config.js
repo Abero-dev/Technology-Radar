@@ -21,11 +21,17 @@ export default {
         'grow-from-top': {
           '0%': { transform: 'scaleY(0)', transformOrigin: 'top' },
           '100%': { transform: 'scaleY(1)', transformOrigin: 'top' }
+        },
+        'slide-down': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(10px)' },
+          '100%': { transform: 'translateY(0)' }
         }
       },
       animation: {
         'slide-in-top': 'slide-in-top 0.3s both',
         'grow-down': 'grow-down 0.3s ease-in-out',
+        'slide-down': 'slide-down 2s infinite ease-in-out',
         'grow-from-top': 'grow-from-top 0.3s ease-in-out',
       },
       fontFamily: {

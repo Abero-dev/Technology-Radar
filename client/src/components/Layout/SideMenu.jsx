@@ -59,7 +59,7 @@ const SideMenu = () => {
             <ul className='list-none p-0 mt-8'>
                 {optionsList.map((option, index) =>
                     <div className='flex flex-col items-center'>
-                        <div className='flex items-center cursor-pointer' onClick={() => setVisible(option)}>
+                        <div className='flex items-center cursor-pointer hover:animate-slide-down' onClick={() => setVisible(option)}>
                             <li
                                 className='h-14 p-3 text-3xl font-bold text-center cursor-pointer mb-5 transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'
                                 key={index}
