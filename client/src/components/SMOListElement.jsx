@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 function SMOListElement({ index, element, type }) {
 
@@ -36,6 +37,7 @@ function SMOListElement({ index, element, type }) {
                         </>
                     }
                     <li className='cursor-pointer px-3 py-1 rounded-3xl transition-all duration-200 hover:bg-[#5353ff] hover:text-white'>Visitar</li>
+                    <NavLink to='/entryDetail' className='cursor-pointer px-3 py-1 rounded-3xl transition-all duration-200 hover:bg-[#5353ff] hover:text-white'>Ver detalles</NavLink>
                 </ul>
             }
         </>

@@ -7,6 +7,7 @@ import { SearchDetailsProvider } from './components/contexts/SearchDetailsContex
 import NotFound from "./components/NotFound"
 import { Suspense } from "react"
 import Loading from "./components/Loading"
+import EntryDetail from "./components/EntryDetail"
 
 const App = () => {
     const router = createBrowserRouter(
@@ -14,6 +15,7 @@ const App = () => {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="radar" element={<Radar />} />
+                <Route path="entryDetail" element={<EntryDetail />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         )
