@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SideMenuOptionList from '../SideMenuOptionList';
+import SideMenuLog from '../SideMenuLog';
 
 const SideMenu = () => {
     const location = useLocation();
@@ -51,7 +52,7 @@ const SideMenu = () => {
     }
 
     return (
-        <div className={`bg-gradient-to-t from-[#3B82F6] to-[#8B5CF6] mt-[40px] border-r-4 border-gray-800 text-white w-[15%] h-[90vh] p-3 fixed flex justify-center left-0 top-16 z-[1] overflow-y-auto scrollbar transition-all duration-300 opacity-0 -translate-x-full
+        <div className={`bg-gradient-to-t from-[#3B82F6] to-[#8B5CF6] mt-[40px] border-r-4 border-gray-800 text-white w-[15%] h-[90vh] p-3 fixed flex flex-col justify-top items-center left-0 top-16 z-[1] overflow-y-auto scrollbar transition-all duration-300 opacity-0 -translate-x-full
         ${isVisible ?
                 'translate-x-0 opacity-100'
                 :
@@ -61,7 +62,7 @@ const SideMenu = () => {
                     <div className='flex flex-col items-center'>
                         <div className='flex items-center cursor-pointer hover:animate-slide-down' onClick={() => setVisible(option)}>
                             <li
-                                className='h-14 p-3 text-3xl font-bold text-center cursor-pointer mb-5 transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'
+                                className='h-14 p-3 text-xl font-bold text-center cursor-pointer transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'
                                 key={index}
                             >
                                 {option}
@@ -104,6 +105,7 @@ const SideMenu = () => {
                     </div>
                 )}
             </ul>
+            <SideMenuLog />
         </div>
     );
 }
