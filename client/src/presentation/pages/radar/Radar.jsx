@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-// import { VisualDetailsContext } from '../../contexts/VisualDetailsContext'
 import radar_visualization from '../../../logic/hooks/radar/radar_visualization'
-import data from "../../data/data"
+import data from "../../../data/data"
 
 const Radar = () => {
     // const { resultsFilter, resultsOrder } = useContext(VisualDetailsContext)

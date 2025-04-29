@@ -20,6 +20,9 @@ const HomeFooter = () => {
                     <NavLink to='https://www.instagram.com/vertexuci/' target="blank" className="social-logo-container w-16 h-16 bg-white flex items-center justify-center overflow-hidden rounded-full hover:bg-gradient-to-b hover:from-emerald-500 hover:via-emerald-400 hover:to-blue-800 hover:invert transition-transform duration-300">
                         <img src="/instagram_logo.png" alt="instagram_logo" className="img_social_logo w-10 h-10 rounded-lg" />
                     </NavLink>
+                    <NavLink to='https://www.linkdedin.com/vertexuci/' target="blank" className="social-logo-container w-16 h-16 bg-white flex items-center justify-center overflow-hidden rounded-full hover:bg-gradient-to-b hover:from-blue-500 hover:via-blue-400 hover:to-blue-800 hover:invert transition-transform duration-300">
+                        <img src="/linkedin_logo.png" alt="instagram_logo" className="img_social_logo w-10 h-10 rounded-lg" />
+                    </NavLink>
                 </section>
                 <p className="text-3xl m-0">© 2025 Centro de Tecnologías Interactivas. Todos los derechos reservados.</p>
             </div>

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { jwtDecode } from "jwt-decode"
+// import { jwtDecode } from "jwt-decode"
 import { ACCESS_TOKEN_KEY } from './Constants'
 
 const authApi = axios.create({
@@ -53,9 +53,9 @@ authApi.interceptors.response.use(
 export const authenticate = async (userFormData) => {
     try {
         const response = await authApi.post('', userFormData)
-        const tokenPayload = jwtDecode(response.data.access)
+        // const tokenPayload = jwtDecode(response.data.access)
 
-        return { tokens: response.data, userData: tokenPayload, status: response.status }
+        // return { tokens: response.data, userData: tokenPayload, status: response.status }
     } catch (error) {
         return { tokens: null, data: null, status: error.message || "Error desconocido" }
     }
@@ -91,7 +91,7 @@ export const getNewAccessToken = async (refreshToken) => {
 
 export const isValid = (token) => {
     try {
-        return token && token.split('.').length === 3 && jwtDecode(token)
+        // return token && token.split('.').length === 3 && jwtDecode(token)
     } catch (error) {
         console.error("Token inválido:", error)
         return false
@@ -101,17 +101,17 @@ export const isValid = (token) => {
 export const isAboutToExpire = (token, threshold = 60) => {
     if (!isValid(token)) throw new Error("Token inválido")
 
-    try {
-        const decoded = jwtDecode(token)
-        const tokenExpiration = decoded.exp
-        const now = Date.now() / 1000
+    // try {
+        // const decoded = jwtDecode(token)
+        // const tokenExpiration = decoded.exp
+        // const now = Date.now() / 1000
 
-        if (tokenExpiration < now) {
+        // if (tokenExpiration < now) {
             console.warn("El token ya está caducado.")
             return true
-        }
-        return (tokenExpiration - now) < threshold
-    } catch (error) {
-        throw new Error(`Error al verificar la expiración del token: ${error}`)
-    }
+        // }
+        // return (tokenExpiration - now) < threshold
+    // } catch (error) {
+        // throw new Error(`Error al verificar la expiración del token: ${error}`)
+    // }
 }

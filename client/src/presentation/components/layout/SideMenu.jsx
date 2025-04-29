@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import SideMenuOptionList from '../../SideMenuOptionList';
-import SideMenuLog from '../../SideMenuLog';
+import SideMenuOptionList from '../SideMenuOptionList';
+import SideMenuLog from '../SideMenuLog';
+// import Arrow
 
 const SideMenu = () => {
     const location = useLocation();
@@ -57,7 +58,7 @@ const SideMenu = () => {
                 '-translate-x-full'}`}>
             <ul className='list-none p-0 mt-8'>
                 {optionsList.map((option, index) =>
-                    <div className='flex flex-col items-center'>
+                    <div key={index} className='flex flex-col items-center'>
                         <div className='flex items-center cursor-pointer hover:animate-slide-down' onClick={() => setVisible(option)}>
                             <li
                                 className='h-14 p-3 text-xl font-bold text-center cursor-pointer transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300'

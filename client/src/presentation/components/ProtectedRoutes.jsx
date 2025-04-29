@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom"
-import useAuth from "../../hooks/Auth/useAuth"
+import useAuth from "../../logic/hooks/auth/useAuth"
 
 /**
  * @description Utiliza {@link useAuth} para verificar si el usuario esta autorizado y dependiendo de esto mostrar el contenido de {@link Outlet} o enviarlo a la ruta principal '/'

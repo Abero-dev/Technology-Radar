@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 
-function SMOListElement({ index, element, type }) {
+const SMOListElement = ({ index, element, type }) => {
 
     const [isMenuVisible, setMenuVisible] = useState(false)
-
+    const [Icon, setIcon] = useState(Menu)
+    useEffect(() => {
+        isMenuVisible?
+            setIcon(X)
+            :
+            setIcon(Menu)
+    }, [isMenuVisible])
     return (
         <>
             <div className='flex items-center gap-x-3 cursor-pointer' onClick={() => setMenuVisible(prev => !prev)}>
-                <img src={isMenuVisible ? '/close.png' : '/menu.png'} className='w-5 h-5 invert' />
                 <li key={index}
                     className='text-2xl'
-                >
+                    >
+                    <Icon className='w-5 h-5 invert' color='white'/>
                     {element}
                 </li>
             </div>

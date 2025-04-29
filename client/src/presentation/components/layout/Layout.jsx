@@ -4,7 +4,7 @@ import { ArrowUpLeftSquare } from 'lucide-react'
 import Navbar from "./Navbar"
 import SideMenu from "./SideMenu"
 import Modal from "../Modal"
-import LoadingContext from "../../../logic/contexts/LoadingContext"
+import { LoadingContext } from "../../../logic/contexts/LoadingContext"
 import Loading from "../Loading"
 
 /**

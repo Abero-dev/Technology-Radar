@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import AuthService from "../../services/AuthService"
 import { AuthContext } from "../../contexts/AuthContext"
-import { useLoading } from "../common/useContexts"
+import { LoadingContext } from "../../contexts/LoadingContext"
 
 /**
  * @description Se encarga de manejar y proveer los estados y funciones asociadas a la autenticación y permisos de usuarios. 
@@ -14,7 +14,7 @@ const useAuth = () => {
     const [ isAuthorized, setIsAuthorized ] = useState(null)
     const { authStatusChanged, user, login, logout } = useContext(AuthContext)
     
-    const { setLoading } = useLoading()
+    const { setLoading } = useContext(LoadingContext)
 
     useEffect(() => {
         const checkAuthorized = async () => {

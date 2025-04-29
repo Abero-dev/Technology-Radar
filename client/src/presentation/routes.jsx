@@ -1,10 +1,14 @@
-import Layout from './components/Layout/Layout'
-import Home from './presentation/components/Home'
-import Radar from './pages/radar/Radar'
-import Details from "./pages/Details"
+import Layout from "./components/Layout/Layout"
+import Home from "./pages/portal/home/Home"
+import FrecuentQuestions from "./pages/portal/faq/FrecuentQuestions"
+import ContactUs from "./pages/portal/cta/ContactUs"
+import About from "./pages/portal/about/About"
+import Radar from "./pages/radar/Radar"
+import Details from "./pages/radar/Details"
 import ErrorComponent from "./components/error/ErrorComponent"
 import ProtectedRoutes from "./components/ProtectedRoutes"
 import Configurations from './pages/configurations/Configurations'
+import NotificationCenter from "./pages/notifications/NotificationCenter"
 
 const routes = [
     {
@@ -16,11 +20,23 @@ const routes = [
                 element: <Home />,
             },
             {
-                index: true,
+                path: "faq",
+                element: <FrecuentQuestions />,
+            },
+            {
+                path: "cta",
+                element: <ContactUs />,
+            },
+            {
+                path: "about",
+                element: <About />,
+            },
+            {
+                path: "radar",
                 element: <Radar />,
             },
             {
-                index: true,
+                path: "details",
                 element: <Details />,
             },
             {
@@ -39,7 +55,7 @@ const routes = [
                         element: <NotificationCenter />,
                     },
                     {
-                        path: "list/:datatype/:relatedUserId?",
+                        path: "config",
                         element: <Configurations />,
                     },
                 ],
