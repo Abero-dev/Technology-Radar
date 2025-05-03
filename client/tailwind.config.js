@@ -31,6 +31,14 @@ export default {
           'from': { opacity: '0', transform: 'rotateY(270deg)' },
           'to': { opacity: '1', transform: 'rotateY(360deg)' },
         },
+        'show-modal': {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
+        'hide-modal': {
+          '0%': { transform: 'translateY(0%)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
       },
       animation: {
         'slide-in-top': 'slide-in-top 0.3s both',
@@ -38,6 +46,8 @@ export default {
         'slide-down': 'slide-down 2s infinite ease-in-out',
         'grow-from-top': 'grow-from-top 0.3s ease-in-out',
         'rotacion-section-gradient': 'rotacion-section-gradient 1.2s ease-in-out',
+        'show-modal': 'show-modal 0.5s ease forwards',
+        'hide-modal': 'hide-modal 0.5s ease forwards',
       },
       fontFamily: {
         custom: ['Verdana', 'Geneva', 'Tahoma', 'sans-serif'],

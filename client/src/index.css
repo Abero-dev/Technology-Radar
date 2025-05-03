@@ -97,52 +97,6 @@ body {
     overflow-x: hidden;
 }
 
-.service-menu-cell {
-  display: flex;
-  flex-direction: column;
-}
-
-.service-cell-title-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.navbar-service-menu-ul {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 0px;
-}
-
-.navbar-service-menu-li {
-  list-style-type: none;
-  
-  transition: transform 0.2s ease-in-out;
-}
-
-.navbar-service-menu-li:hover {
-  transform: scale(1.1);
-}
-
-.navbar-service-menu-navlink {
-text-decoration: none;
-  color: #eee;
-  font-size: 26px;
-  text-align: right;
-  cursor: pointer;
-  border-radius: 12px;
-  padding: 0 8px;
-}
-
-.navbar-service-menu-navlink:hover {
-
-  border-bottom: 4px solid #eee;
-}
-
 .service-card-icon {
   transform: scale(2);
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(120%) contrast(100%);
