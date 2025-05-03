@@ -50,7 +50,7 @@ const Radar = () => {
 
     return (
         <>
-            <section className='relative w-full scale-[0.7] h-[25vh]'>
+            <section className='relative w-full scale-[0.65] h-[25vh]'>
                 {loading ? <span>Loading...</span> : <svg id="radar" ref={svgRef} />}
             </section>
         </>
