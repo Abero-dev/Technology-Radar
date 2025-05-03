@@ -7,6 +7,10 @@
   --secondary-color: #8B5CF6;
 }
 
+body {
+  background: #eee !important;
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 14px;
