@@ -68,7 +68,7 @@ const Home = () => {
                                         <img alt="Ilustración de informe detallado" className="card-image" src="/hub_informacion.jpg" />
                                     </div>
                                     <div className="flip-card-back">
-                                        <p className="title">Te proporcionamos informes detallados y personalizados para que tomes decisiones informadas</p>
+                                        <p className="title">Te proporcionamos informes detallados y personalizados para que tomes decisiones informadas.</p>
                                     </div>
                                 </div>
                             </div>
