@@ -204,15 +204,6 @@ text-decoration: none;
   align-items: center;
 }
 
-.main-content {
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-  background-color: #eee;
-}
-
 .outlet {
   width: 100%;
 }
@@ -222,16 +213,6 @@ text-decoration: none;
   margin-bottom: 200px;
   padding: 0 20px;
   margin: 0 auto;
-}
-
-.home-title {
-  text-align: center;
-  font-weight: 900;
-  font-size: 100px;
-  color: white;
-  margin-top: 350px;
-  text-shadow: 15px 0px 10px rgba(0, 0, 0, 1);
-  line-height: 175px;
 }
 
 .vigitech {
@@ -346,49 +327,6 @@ text-decoration: none;
   color: #333;
 } */
 
-.section-gradient {
-    background: linear-gradient(to right, #3B82F6, #8B5CF6);
-    color: white;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 60px;
-    padding-right: 60px;
-    text-align: center;
-    border-radius: 50px;
-    margin-top: 1300px;
-}
-
-.section-gradient-rotating {
-    opacity: 1;
-    animation: rotacion-section-gradient 1.2s ease-in-out;
-}
-
-@keyframes rotacion-section-gradient {
-  from {
-        opacity: 0;
-        transform: rotateY(270deg);
-    }
-    to {
-        opacity: 1; 
-        transform: rotateY(360deg);
-    }
-}
-
-.section-title {
-    font-size: 60px;
-    font-weight: bold;
-    margin-bottom: 3rem;
-}
-
-.section-description {
-    font-size: 40px;
-    margin-bottom: 2rem;
-    max-width: 100%;
-}
-
 .cta-button {
     background-color: white;
     color: #003385; /* Color azul */
@@ -409,18 +347,6 @@ text-decoration: none;
     transform: scale(1.1);
 }
 
-.section {
-    padding: 5rem 0; /* Espaciado vertical */
-    text-align: center; /* Centrar texto */
-}
-
-.flex-container {
-    display: flex;
-    flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
-    justify-content: center; /* Centrar elementos */
-    gap: 60px;
-}
-
 .card {
     width: 100%; /* Ancho completo en móviles */
     max-width: 300px; /* Ancho máximo */
@@ -434,24 +360,6 @@ text-decoration: none;
     transition: transform 0.2s ease-in-out ; 
 }
 
-.card:hover {
-  transform: scale(1.2);
-}
-
-.card-image {
-    border-radius: 1em; /* Bordes redondeados */
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    margin-bottom: 1rem; /* Espaciado inferior */
-}
-
-.card-title {
-    font-size: 1.5rem; /* Tamaño de fuente 2xl */
-    font-weight: bold; /* Negrita */
-    margin-bottom: 0.5rem; /* Espaciado inferior */
-}
 
 .flip-card {
   background-color: transparent;
@@ -459,21 +367,6 @@ text-decoration: none;
   height: 400px;
   perspective: 1000px;
   font-family: sans-serif;
-}
-
-.flip-card
-
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-  margin: 0;
-  max-width: 300px;
-  position: relative;
-  top: 0;
-  left: 60px;
-  line-height: 50px;
-  text-align: left;
 }
 
 .flip-card-inner {

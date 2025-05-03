@@ -23,29 +23,29 @@ const Layout = () => {
 
     const { loading } = useContext(LoadingContext)
     return (
-            <div
-                className='app'
-                >
-                <Modal isOpen={loading}>
-                    <Loading/>
-                </Modal>    
-                
-                <Navbar />
-                    <main className="main-content"
-                        >
-                        { currentPath != '/' &&
-                            <button
-                                className="back-button"
-                                onClick={() => navigate(-1)}
-                                title="Volver"
-                                >
-                                <ArrowUpLeftSquare size={40} color="white" />
-                            </button>}
-                        <Outlet className="outlet"/>
-                    </main>
-                <SideMenu/>
-            </div>
-        )
+        <div
+            className='app'
+        >
+            <Modal isOpen={loading}>
+                <Loading />
+            </Modal>
+
+            <Navbar />
+            <main className="w-screen flex flex-col items-center grow bg-[#eee]"
+            >
+                {currentPath != '/' &&
+                    <button
+                        className="back-button"
+                        onClick={() => navigate(-1)}
+                        title="Volver"
+                    >
+                        <ArrowUpLeftSquare size={40} color="white" />
+                    </button>}
+                <Outlet className="outlet" />
+            </main>
+            <SideMenu />
+        </div>
+    )
 }
 
 export default Layout
