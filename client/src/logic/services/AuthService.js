@@ -3,7 +3,7 @@ import * as tokens from "../../APIs/Constants"
 import NotificationService from "./NotificationService"
 
 class AuthService {
-    constructor () {
+    constructor() {
         this.isUserActive = true
     }
 
@@ -11,11 +11,11 @@ class AuthService {
         this.isUserActive = state
     }
 
-    getUserActive () {
+    getUserActive() {
         return this.isUserActive
     }
-    
-    async login (userFormData) {
+
+    async login(userFormData) {
         const response = await authApi.authenticate(userFormData)
         if (response.tokens && response.userData) {
             const user = {
@@ -27,17 +27,17 @@ class AuthService {
             authApi.setToken(tokens.ACCESS_TOKEN_KEY, response.tokens.access)
             authApi.setToken(tokens.REFRESH_TOKEN_KEY, response.tokens.refresh)
             authApi.setToken(tokens.USER_TOKEN_KEY, user)
-            
+
             this.setUserActive(true)
-            
+
             return user
         }
         console.log('Ocurrio un error: ', response)
         this.logout()
         throw new Error(response.status)
-    }    
+    }
 
-    async logout () {
+    async logout() {
         authApi.deleteToken(tokens.USER_TOKEN_KEY)
         authApi.deleteToken(tokens.ACCESS_TOKEN_KEY)
         authApi.deleteToken(tokens.REFRESH_TOKEN_KEY)
@@ -49,7 +49,7 @@ class AuthService {
         NotificationService.showToast(notification, "warning")
     }
 
-    getLoggedUserInfo () {
+    getLoggedUserInfo() {
         const user = authApi.getToken(tokens.USER_TOKEN_KEY)
         return user
     }
@@ -58,17 +58,17 @@ class AuthService {
         if (!this.getUserActive) this.logout()
         const token = authApi.getToken(tokens.ACCESS_TOKEN_KEY)
 
-        if(token) {
+        if (token) {
             if (authApi.isAboutToExpire(token))
                 return await this.refreshToken()
-            
+
             else
                 return true
-        }else
+        } else
             return false
     }
 
-    async refreshToken () {
+    async refreshToken() {
         const refreshToken = authApi.getToken(tokens.REFRESH_TOKEN_KEY)
 
         if (!refreshToken)
@@ -76,7 +76,7 @@ class AuthService {
 
         try {
             const response = await authApi.getNewAccessToken(refreshToken)
-            
+
             if (response?.status === 200) {
                 authApi.setToken(tokens.ACCESS_TOKEN_KEY, response.data.access)
                 return true
