@@ -101,37 +101,34 @@ const Navbar: React.FC = () => {
                                 Acerca de
                             </NavLink>
                         </li>
-                        <li onClick={toggleAvatarMenu} className="absolute right-20">
-                            <div className={`flex ${menuAvatarVisible && "bg-stone-100 border-[3px] border-violet-800"} rounded-full gap-x-4`}>
-                                {menuAvatarVisible &&
-                                    <ul className="flex flex-col justify-center gap-4 pl-4 text-black font-bold">
-                                        <li className="flex justify-center items-center gap-x-2">
-                                            <img src="/notificacion_faq.png" className="w-6 h-6"></img>
-                                            <NavLink
-                                                to={"/notifications"}
-                                            >
-                                                Notificaciones
-                                            </NavLink>
-                                        </li>
-                                        <li className="flex justify-center items-center gap-x-2">
-                                            <img src="/config.png" className="w-6 h-6"></img>
-                                            <NavLink
-                                                to={"/config"}
-                                            >
-                                                Configuración
-                                            </NavLink>
-                                        </li>
-                                    </ul>
-                                }
-                                <figure className="w-20 h-20 rounded-full bg-slate-100 border-[3px] border-violet-800 flex justify-center items-center">
-                                    <img src="/generic_avatar.png" className="object-cover invert-[30%]"></img>
-                                </figure>
-
-                            </div>
-                        </li>
                     </ul>
+                    <div className={`flex rounded-full gap-x-4 relative`} onClick={toggleAvatarMenu}>
+                        {menuAvatarVisible &&
+                            <ul className={`flex flex-col justify-center items-center gap-y-1 text-black font-bold absolute right-20 bg-stone-100 px-10 py-2 rounded-full border-[3px] border-violet-800 ${menuAvatarVisible && "animate-fade-in"} `}>
+                                <li className="w-[140%] flex justify-center items-center gap-x-2 hover:bg-blue-500 rounded-full py-1 transition-colors duration-200">
+                                    <img src="/notificacion_faq.png" className="w-6 h-6"></img>
+                                    <NavLink
+                                        to={"/notifications"}
+                                    >
+                                        Notificaciones
+                                    </NavLink>
+                                </li>
+                                <li className="w-[140%] flex justify-center items-center gap-x-2 hover:bg-blue-500 rounded-full py-1 transition-colors duration-200">
+                                    <img src="/config.png" className="w-6 h-6"></img>
+                                    <NavLink
+                                        to={"/config"}
+                                    >
+                                        Configuración
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        }
+                        <figure className="w-20 h-20 rounded-full bg-slate-100 border-[3px] border-violet-800 flex justify-center items-center hover:animate-slide-down">
+                            <img src="/generic_avatar.png" className="object-cover invert-[30%] transition-opacity duration-200"></img>
+                        </figure>
+                    </div>
                 </nav>
-            </header>
+            </header >
         </>
     );
 };

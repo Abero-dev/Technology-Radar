@@ -39,6 +39,10 @@ export default {
           '0%': { transform: 'translateY(0%)' },
           '100%': { transform: 'translateY(-100%)' },
         },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         'slide-in-top': 'slide-in-top 0.3s both',
@@ -48,6 +52,7 @@ export default {
         'rotacion-section-gradient': 'rotacion-section-gradient 1.2s ease-in-out',
         'show-modal': 'show-modal 0.5s ease forwards',
         'hide-modal': 'hide-modal 0.5s ease forwards',
+        'fade-in': 'fade-in 0.5s ease-in-out',
       },
       fontFamily: {
         custom: ['Verdana', 'Geneva', 'Tahoma', 'sans-serif'],
