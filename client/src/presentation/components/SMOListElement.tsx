@@ -9,8 +9,8 @@ interface SMOListElementProps {
 }
 
 const SMOListElement: React.FC<SMOListElementProps> = ({ index, element, type }) => {
-    const [isMenuVisible, setMenuVisible] = useState < boolean > (false);
-    const [Icon, setIcon] = useState < typeof Menu > (Menu);
+    const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
+    const [Icon, setIcon] = useState<typeof Menu>(Menu);
 
     useEffect(() => {
         setIcon(isMenuVisible ? X : Menu);
@@ -60,7 +60,7 @@ const SMOListElement: React.FC<SMOListElementProps> = ({ index, element, type })
                         Visitar
                     </li>
                     <NavLink
-                        to="/entryDetail"
+                        to="/details"
                         className="cursor-pointer px-3 py-1 rounded-3xl transition-all duration-200 hover:bg-[#5353ff] hover:text-white"
                     >
                         Ver detalles

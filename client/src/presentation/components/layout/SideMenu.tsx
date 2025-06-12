@@ -58,12 +58,13 @@ const SideMenu: React.FC = () => {
                             onClick={() => toggleOptionVisibility(option as MenuOption)}
                         >
                             <li
-                                className="h-14 p-3 text-xl font-bold text-center cursor-pointer transition-[border] duration-100 border-none hover:rounded-[25%] hover:border-b-4 hover:border-solid hover:border-cyan-300"
+                                className="h-14 p-3 text-xl font-bold text-center cursor-pointer duration-100"
                             >
                                 {option}
                             </li>
                             <img
-                                className={`w-${visibleOptions[option as MenuOption] ? "10" : "6"} h-${visibleOptions[option as MenuOption] ? "10" : "6"} ml-2 mb-3 invert`}
+                                className={`w-${visibleOptions[option as MenuOption] ? "10" : "6"} h-${visibleOptions[option as MenuOption] ? "12" : "6"} ml-2 mb-3 invert`}
+                                style={{ width: "20px", height: "20px" }}
                                 src={visibleOptions[option as MenuOption] ? "/desplegable_arriba.png" : "/desplegable_abajo.png"}
                                 alt={`Toggle ${option}`}
                             />
