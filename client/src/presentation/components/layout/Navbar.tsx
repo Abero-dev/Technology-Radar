@@ -10,6 +10,7 @@ interface ServiceCardContainerProps {
 
 const Navbar: React.FC = () => {
     const [menuVisible, setMenuVisible] = useState<boolean>(false);
+    const [menuAvatarVisible, setMenuAvatarVisible] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLLIElement>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,6 +40,10 @@ const Navbar: React.FC = () => {
     const handleServiceCardClick = () => {
         setMenuVisible(false);
     };
+
+    const toggleAvatarMenu = () => {
+        setMenuAvatarVisible(!menuAvatarVisible);
+    }
 
     return (
         <>
@@ -95,6 +100,34 @@ const Navbar: React.FC = () => {
                             >
                                 Acerca de
                             </NavLink>
+                        </li>
+                        <li onClick={toggleAvatarMenu} className="absolute right-20">
+                            <div className={`flex ${menuAvatarVisible && "bg-stone-100 border-[3px] border-violet-800"} rounded-full gap-x-4`}>
+                                {menuAvatarVisible &&
+                                    <ul className="flex flex-col justify-center gap-4 pl-4 text-black font-bold">
+                                        <li className="flex justify-center items-center gap-x-2">
+                                            <img src="/notificacion_faq.png" className="w-6 h-6"></img>
+                                            <NavLink
+                                                to={"/notifications"}
+                                            >
+                                                Notificaciones
+                                            </NavLink>
+                                        </li>
+                                        <li className="flex justify-center items-center gap-x-2">
+                                            <img src="/config.png" className="w-6 h-6"></img>
+                                            <NavLink
+                                                to={"/config"}
+                                            >
+                                                Configuración
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                }
+                                <figure className="w-20 h-20 rounded-full bg-slate-100 border-[3px] border-violet-800 flex justify-center items-center">
+                                    <img src="/generic_avatar.png" className="object-cover invert-[30%]"></img>
+                                </figure>
+
+                            </div>
                         </li>
                     </ul>
                 </nav>
